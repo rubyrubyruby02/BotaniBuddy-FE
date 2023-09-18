@@ -1,11 +1,13 @@
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
+import Header from "./Header";
 
 export default function HomePage() {
     return (
         <View>
-            <Text>
-                This is the home page!
-            </Text>
+            <Header />
+            <Button title="My Garden"/>
+            <Button title="Daily Tasks"/>
+            <Button title="Find My Plant"/>
         </View>
     )
 }
