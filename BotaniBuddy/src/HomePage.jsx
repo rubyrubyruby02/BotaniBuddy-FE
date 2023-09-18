@@ -8,7 +8,7 @@ export default function HomePage() {
     const theme = useTheme(); 
 
     return (
-        <View>
+        <View >
             <Header />
             <Button mode="contained" buttonColor={theme.colors.tertiary}>
                 My Garden
