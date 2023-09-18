@@ -1,5 +1,4 @@
 import { StyleSheet, View } from "react-native";
-import * as React from 'react';
 import { Text } from 'react-native-paper';
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 
@@ -10,8 +9,8 @@ export default function Header() {
         return <Text>Loading</Text>
     }
     return (
-        <View style={styles.container}>
-            <Text style={styles.header} >
+        <View style={styles.header}>
+            <Text style={{fontFamily: "Itim_400Regular", fontSize:40}} >
                 BotaniBuddy
             </Text>
         </View>
@@ -19,15 +18,9 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-    },
     header: {
-      fontFamily: "Itim_400Regular",
-      fontSize: 40,
-    },
+        height: "15%",
+    }
   });
   
 

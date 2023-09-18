@@ -15,7 +15,7 @@ const theme = {
     tertiary: "#58a4b0",
     onCustomDarkGreen: "#0c7c59",
     onCustomNavy: "#0b3948",
-    background: '#b2d793'
+    text: '#ffffff',
   },
 };
 
