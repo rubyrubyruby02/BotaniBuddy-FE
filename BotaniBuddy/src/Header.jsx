@@ -14,12 +14,14 @@ export default function Header() {
                 BotaniBuddy
             </Text>
         </View>
+
     )
 }
 
 const styles = StyleSheet.create({
     header: {
-        height: "15%",
+        height: 100,
+        paddingTop: 30
     }
   });
   
