@@ -15,6 +15,7 @@ export default function LoginPage({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
+
       <Button
         mode="contained"
         buttonColor={theme.colors.tertiary}

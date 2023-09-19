@@ -28,7 +28,6 @@ export default styles = StyleSheet.create({
     width: 300,
   },
 
-
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -48,5 +47,11 @@ export default styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
   },
-
+  NavBarButton: {
+    width: "33%",
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 5,
+  },
 });

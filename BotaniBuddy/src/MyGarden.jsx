@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
+import Navbar from "./NavBar";
 
 export default function PlantSelection({ navigation }) {
   const theme = useTheme();
@@ -13,6 +14,7 @@ export default function PlantSelection({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
+      <Navbar />
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
