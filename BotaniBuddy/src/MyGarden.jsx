@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import Navbar from "./NavBar";
 
-export default function PlantSelection({ navigation }) {
+export default function PlantSelection() {
   const theme = useTheme();
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {
@@ -37,9 +37,6 @@ export default function PlantSelection({ navigation }) {
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.MyPlantButton}
-          onPress={() => {
-            navigation.navigate("LoginForm");
-          }}
         >
           <Text
             style={{
@@ -55,9 +52,6 @@ export default function PlantSelection({ navigation }) {
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.MyPlantButton}
-          onPress={() => {
-            navigation.navigate("LoginForm");
-          }}
         >
           <Text
             style={{

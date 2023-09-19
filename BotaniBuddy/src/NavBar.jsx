@@ -1,6 +1,5 @@
-import Header from "./Header";
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { View, Image } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 

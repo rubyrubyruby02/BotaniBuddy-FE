@@ -1,5 +1,3 @@
-
-
 export default theme = {
     colors: {
       primary: '#b2d793',

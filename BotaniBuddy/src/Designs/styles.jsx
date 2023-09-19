@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 
 export default styles = StyleSheet.create({
   container: {
