@@ -4,7 +4,7 @@ import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
 
-export default function HomePage() {
+export default function HomePage({ navigation }) {
   const theme = useTheme();
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {
@@ -20,6 +20,9 @@ export default function HomePage() {
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.button}
+          onPress={() => {
+            navigation.navigate("MyGarden");
+          }}
         >
           <Text
             style={{

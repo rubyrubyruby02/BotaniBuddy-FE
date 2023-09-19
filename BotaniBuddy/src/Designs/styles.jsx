@@ -24,12 +24,28 @@ export default styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
   },
-  buttonText: {
-    fontFamily: "Itim_400Regular",
-    fontSize: 30,
-    paddingTop: 15,
-  },
   formContainer: {
     width: 300,
   },
+
+
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  MyPlantButton: {
+    width: 60,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  image: {
+    resizeMode: "cover",
+    height: 360,
+    width: 500,
+    position: "absolute",
+    bottom: 0,
+  },
+
 });

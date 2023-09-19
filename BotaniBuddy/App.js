@@ -6,6 +6,7 @@ import theme from "./src/Designs/themes";
 import HomePage from "./src/HomePage";
 import LoginPage from "./src/LoginPage";
 import LoginForm from "./src/LoginForm";
+import MyGarden from "./src/MyGarden";
 
 const Stack = createNativeStackNavigator();
 
