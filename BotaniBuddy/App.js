@@ -1,31 +1,27 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { PaperProvider } from 'react-native-paper';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { PaperProvider } from "react-native-paper";
+import theme from "./src/Designs/themes";
 
-import HomePage from './src/HomePage';
-
-
+import HomePage from "./src/HomePage";
+import LoginPage from "./src/LoginPage";
+import LoginForm from "./src/LoginForm";
 
 const Stack = createNativeStackNavigator();
-
-const theme = {
-  colors: {
-    primary: '#b2d793',
-    secondary: '#f4b393',
-    tertiary: "#58a4b0",
-    onCustomDarkGreen: "#0c7c59",
-    onCustomNavy: "#0b3948",
-    text: '#ffffff',
-  },
-};
-
 
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer >
-        <Stack.Navigator screenOptions={{contentStyle:{backgroundColor: theme.colors.primary}}}>
-          <Stack.Screen  name='Home Page' component={HomePage} />
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            contentStyle: { backgroundColor: theme.colors.primary },
+          }}
+        >
+          <Stack.Screen name="LoginPage" component={LoginPage} />
+          <Stack.Screen name="LoginForm" component={LoginForm} />
+          <Stack.Screen name="HomePage" component={HomePage} />
+          <Stack.Screen name="MyGarden" component={MyGarden} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
