@@ -1,20 +1,18 @@
-import {Image, StyleSheet, View} from "react-native";
-import { Button, useTheme, Text } from 'react-native-paper';
+import { Image, StyleSheet, View } from "react-native";
+import { Button, useTheme, Text } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
-import styles from "./Designs/styles"
-
+import styles from "./Designs/styles";
 
 export default function HomePage() {
+  const theme = useTheme();
+  const [fontsLoaded] = useFonts({ Itim_400Regular });
+  if (!fontsLoaded) {
+    return <Text>Loading</Text>;
+  }
 
-    const theme = useTheme(); 
-    const [fontsLoaded] = useFonts({ Itim_400Regular});
-    if (!fontsLoaded) {
-        return <Text>Loading</Text>
-    }
-
-    return (
-      <>
+  return (
+    <>
       <View style={styles.container}>
         <Header />
         <Button
@@ -23,7 +21,13 @@ export default function HomePage() {
           textColor={theme.colors.text}
           style={styles.button}
         >
-          <Text style={{ fontFamily: "Itim_400Regular", fontSize: 30, paddingTop: 15}}>
+          <Text
+            style={{
+              fontFamily: "Itim_400Regular",
+              fontSize: 30,
+              paddingTop: 15,
+            }}
+          >
             My Garden
           </Text>
         </Button>
@@ -33,7 +37,13 @@ export default function HomePage() {
           style={styles.button}
           textColor={theme.colors.text}
         >
-          <Text style={{fontFamily: "Itim_400Regular", fontSize: 30, paddingTop: 15}}>
+          <Text
+            style={{
+              fontFamily: "Itim_400Regular",
+              fontSize: 30,
+              paddingTop: 15,
+            }}
+          >
             Daily Tasks
           </Text>
         </Button>
@@ -43,13 +53,21 @@ export default function HomePage() {
           style={styles.button}
           textColor={theme.colors.text}
         >
-          <Text style={{ fontFamily: "Itim_400Regular", fontSize: 30, paddingTop: 15}}>
+          <Text
+            style={{
+              fontFamily: "Itim_400Regular",
+              fontSize: 30,
+              paddingTop: 15,
+            }}
+          >
             Find My Plant
           </Text>
         </Button>
-        <Image source={require('../assets/image-from-rawpixel-id-12034028-original.png')} style={styles.image} >
-        </Image>
+        <Image
+          source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
+          style={styles.image}
+        ></Image>
       </View>
-      </>
-    );
+    </>
+  );
 }
