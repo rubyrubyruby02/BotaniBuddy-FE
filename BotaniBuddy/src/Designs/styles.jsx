@@ -6,6 +6,10 @@ export default styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+  header: {
+    height: 100,
+    paddingTop: 30,
+  },
   button: {
     marginVertical: 20,
     width: 230,
@@ -21,9 +25,9 @@ export default styles = StyleSheet.create({
     bottom: 0,
   },
   formContainer: {
-    flex: 1,
-    alignItems: "center",
+    width: 300,
   },
+
 
   buttonContainer: {
     flexDirection: "row",
@@ -44,4 +48,5 @@ export default styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
   },
+
 });
