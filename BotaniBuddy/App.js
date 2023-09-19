@@ -21,6 +21,7 @@ export default function App() {
           <Stack.Screen name="LoginPage" component={LoginPage} />
           <Stack.Screen name="LoginForm" component={LoginForm} />
           <Stack.Screen name="HomePage" component={HomePage} />
+          <Stack.Screen name="MyGarden" component={MyGarden} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

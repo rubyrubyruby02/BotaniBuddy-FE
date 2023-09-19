@@ -8,7 +8,7 @@ export default styles = StyleSheet.create({
   },
   header: {
     height: 100,
-    paddingTop: 30
+    paddingTop: 30,
   },
   button: {
     marginVertical: 20,
@@ -30,16 +30,6 @@ export default styles = StyleSheet.create({
     paddingTop: 15,
   },
   formContainer: {
-    width: 300
+    width: 300,
   },
-  //   scrollViewStyle: {
-  //     flex: 1,
-  //     padding: 15,
-  //     justifyContent: "center",
-  //   },
-  //   headingStyle: {
-  //     fontSize: 30,
-  //     textAlign: "center",
-  //     marginBottom: 40,
-  //   },
 });
