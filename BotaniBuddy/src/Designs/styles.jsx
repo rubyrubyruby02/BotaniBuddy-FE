@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import theme from "./themes"
+import theme from "./themes";
 
 export default styles = StyleSheet.create({
   container: {
@@ -55,7 +55,7 @@ export default styles = StyleSheet.create({
   FormText: {
     width: "90%",
     backgroundColor: theme.colors.primary,
-    margin: 5
+    margin: 5,
   },
 
   buttonDisabled: {
@@ -65,5 +65,11 @@ export default styles = StyleSheet.create({
     height: 60,
     alignItems: "center",
     alignContent: "center",
-  }
+  },
+  cameraContainer: {
+    flex: 1,
+  },
+  camera: {
+    flex: 1,
+  },
 });

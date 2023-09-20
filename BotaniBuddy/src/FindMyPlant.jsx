@@ -41,7 +41,7 @@ export default function FindMyPlant({ navigation }) {
           style={styles.button}
           textColor={theme.colors.text}
           onPress={() => {
-            navigation.navigate("FindPlantbyImage");
+            navigation.navigate("FindPlantByImage");
           }}
         >
           <Text

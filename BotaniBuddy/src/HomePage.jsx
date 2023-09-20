@@ -57,7 +57,6 @@ export default function HomePage({ navigation }) {
           textColor={theme.colors.text}
           style={styles.button}
           onPress={() => {
-            console.log("pressed");
             navigation.navigate("FindMyPlant");
           }}
         >

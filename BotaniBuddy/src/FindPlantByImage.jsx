@@ -7,11 +7,13 @@ import {
   TouchableOpacity,
   View,
   Image,
+  Dimensions,
+  Platform
 } from "react-native";
-import styles from "../src/Designs/styles";
+import styles from "./Designs/styles";
 import * as FileSystem from "expo-file-system";
 
-export default function TestCamera() {
+export default function FindPlantbyImage({ navigation }) {
   const [type, setType] = useState(CameraType.back);
   const [hasPermission, setHasPermission] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -60,7 +62,7 @@ export default function TestCamera() {
       });
       const moreEndcodedData = "data:image/jpeg;base64," + base64Data;
       setBase64Image(moreEndcodedData);
-      postImageName(moreEndcodedData);
+      // postImageName(moreEndcodedData);
     }
   };
 
@@ -93,7 +95,7 @@ export default function TestCamera() {
         <View style={styles.previewImage}>
           <Image
             source={{ uri: capturedImage }}
-            style={{ width: 300, height: 400 }}
+            style={{ width: 400, height: 400 }}
           ></Image>
         </View>
       )}
