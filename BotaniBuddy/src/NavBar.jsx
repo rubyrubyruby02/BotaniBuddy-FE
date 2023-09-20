@@ -1,6 +1,6 @@
 import Header from "./Header";
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, ScrollView } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 
@@ -13,22 +13,23 @@ export default function Navbar({ navigation }) {
 
   return (
     <>
-      <View style={styles.container}>
+      <View>
         <View style={styles.buttonContainer}>
           <Button
             mode="contained"
             buttonColor={theme.colors.tertiary}
             textColor={theme.colors.text}
             style={styles.NavBarButton}
+            compact="true"
           >
             <Text
               style={{
                 fontFamily: "Itim_400Regular",
-                fontSize: 10,
-                paddingTop: 5,
+                fontSize: 14,
+                padding: 0,
               }}
             >
-              My Garden
+              plant 1
             </Text>
           </Button>
           <Button
@@ -36,6 +37,7 @@ export default function Navbar({ navigation }) {
             buttonColor={theme.colors.tertiary}
             textColor={theme.colors.text}
             style={styles.NavBarButton}
+            compact="true"
             onPress={() => {
               navigation.navigate("MyGarden");
             }}
@@ -43,7 +45,7 @@ export default function Navbar({ navigation }) {
             <Text
               style={{
                 fontFamily: "Itim_400Regular",
-                fontSize: 10,
+                fontSize: 14,
               }}
             >
               Find my Plant
@@ -54,6 +56,7 @@ export default function Navbar({ navigation }) {
             buttonColor={theme.colors.tertiary}
             textColor={theme.colors.text}
             style={styles.NavBarButton}
+            compact="true"
             onPress={() => {
               navigation.navigate("LoginForm");
             }}
@@ -61,18 +64,13 @@ export default function Navbar({ navigation }) {
             <Text
               style={{
                 fontFamily: "Itim_400Regular",
-                fontSize: 10,
-                paddingTop: 5,
+                fontSize: 14,
               }}
             >
               Daily Tasks
             </Text>
           </Button>
         </View>
-        <Image
-          source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
-          style={styles.image}
-        ></Image>
       </View>
     </>
   );

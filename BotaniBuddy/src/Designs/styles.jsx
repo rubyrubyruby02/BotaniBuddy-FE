@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 
 export default styles = StyleSheet.create({
   container: {
@@ -31,24 +30,20 @@ export default styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 10,
   },
   MyPlantButton: {
-    width: 60,
+    minWidth: 60,
+    maxWidth: "auto",
     height: 60,
     alignItems: "center",
     justifyContent: "center",
-    margin: 10,
+    marginLeft: 10,
+    marginRight: 10,
   },
 
-  image: {
-    resizeMode: "cover",
-    height: 360,
-    width: 500,
-    position: "absolute",
-    bottom: 0,
-  },
   NavBarButton: {
-    width: "33%",
+    minWidth: "30%",
     height: 60,
     alignItems: "center",
     justifyContent: "center",

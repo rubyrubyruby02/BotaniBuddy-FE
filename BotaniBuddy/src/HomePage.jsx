@@ -20,6 +20,7 @@ export default function HomePage({ navigation }) {
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.button}
+          rippleColor={theme.colors.secondary}
           onPress={() => {
             navigation.navigate("MyGarden");
           }}
