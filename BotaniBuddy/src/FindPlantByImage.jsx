@@ -8,7 +8,7 @@ import {
   View,
   Image,
   Dimensions,
-  Platform
+  Platform,
 } from "react-native";
 import styles from "./Designs/styles";
 import * as FileSystem from "expo-file-system";
@@ -19,7 +19,61 @@ export default function FindPlantbyImage({ navigation }) {
   const [capturedImage, setCapturedImage] = useState(null);
   const [base64Image, setBase64Image] = useState(null);
 
-  const cameraRef = useRef(null);
+  const [cameraRef, setCameraRef] = useState(null);
+
+  const [imagePadding, setImagePadding] = useState(0);
+  const [ratio, setRatio] = useState("4:3");
+  const { height, width } = Dimensions.get("window");
+  const screenRatio = height / width;
+  const [isRatioSet, setIsRatioSet] = useState(false);
+
+  console.log(imagePadding, ratio, height, width, screenRatio, isRatioSet);
+
+  const prepareRatio = async () => {
+    let desiredRatio = "4:3";
+    if (Platform.OS === "android") {
+      console.log("before ratios");
+      const ratios = await cameraRef.getSupportedRatiosAsync();
+      console.log(ratios, "< ratios");
+      let distances = {};
+      let realRatios = {};
+      let minDistance = null;
+      for (const ratio of ratios) {
+        const parts = ratio.split(":");
+        const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
+        realRatios[ratio] = realRatio;
+        // ratio can't be taller than screen, so we don't want an abs()
+        const distance = screenRatio - realRatio;
+        distances[ratio] = realRatio;
+        if (minDistance == null) {
+          minDistance = ratio;
+        } else {
+          if (distance >= 0 && distance < distances[minDistance]) {
+            minDistance = ratio;
+          }
+        }
+      }
+      // set the best match
+      desiredRatio = minDistance;
+      //  calculate the difference between the camera width and the screen height
+      const remainder = Math.floor(
+        (height - realRatios[desiredRatio] * width) / 2
+      );
+      // set the preview padding and preview ratio
+      setImagePadding(remainder);
+      setRatio(desiredRatio);
+      // Set a flag so we don't do this
+      // calculation each time the screen refreshes
+      setIsRatioSet(true);
+      console.log(imagePadding);
+    }
+  };
+
+  const setCameraReady = async () => {
+    if (!isRatioSet) {
+      await prepareRatio();
+    }
+  };
 
   useEffect(() => {
     Camera.requestCameraPermissionsAsync()
@@ -73,7 +127,16 @@ export default function FindPlantbyImage({ navigation }) {
   return (
     <View style={styles.cameraContainer}>
       {!capturedImage ? (
-        <Camera style={styles.camera} type={type} ref={cameraRef}>
+        <Camera
+          style={[
+            styles.camera,
+            { marginTop: imagePadding, marginBottom: imagePadding },
+          ]}
+          type={type}
+          ref={(ref) => setCameraRef(ref)}
+          onCameraReady={setCameraReady}
+          ratio={ratio}
+        >
           <View style={styles.buttonContainer}>
             <Button
               style={styles.button}
