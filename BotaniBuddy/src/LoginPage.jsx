@@ -1,9 +1,8 @@
-import { StyleSheet, View, Image } from "react-native";
+import { View, Image } from "react-native";
 import { Button, useTheme, Text } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
-import LoginForm from "./LoginForm";
 
 export default function LoginPage({ navigation }) {
   const theme = useTheme();

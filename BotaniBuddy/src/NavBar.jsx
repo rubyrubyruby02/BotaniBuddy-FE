@@ -1,4 +1,3 @@
-import Header from "./Header";
 import React from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";

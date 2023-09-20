@@ -5,7 +5,7 @@ import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import Navbar from "./NavBar";
 
-export default function PlantSelection({ navigation }) {
+export default function PlantSelection() {
   const theme = useTheme();
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {

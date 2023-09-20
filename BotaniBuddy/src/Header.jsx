@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { Text } from 'react-native-paper';
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import styles from "./Designs/styles";
