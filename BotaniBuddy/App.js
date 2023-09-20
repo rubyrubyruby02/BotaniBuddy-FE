@@ -8,6 +8,7 @@ import LoginPage from "./src/LoginPage";
 import LoginForm from "./src/LoginForm";
 import MyGarden from "./src/MyGarden";
 import Navbar from "./src/NavBar";
+import RegisterForm from "./src/RegisterForm";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
         >
           <Stack.Screen name="LoginPage" component={LoginPage} />
           <Stack.Screen name="LoginForm" component={LoginForm} />
+          <Stack.Screen name="RegisterForm" component={RegisterForm} />
           <Stack.Screen name="HomePage" component={HomePage} />
           <Stack.Screen name="MyGarden" component={MyGarden} />
           <Stack.Screen name="NavBar" component={Navbar} />

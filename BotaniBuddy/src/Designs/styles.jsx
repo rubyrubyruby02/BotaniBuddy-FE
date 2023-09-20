@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "./themes"
 
 export default styles = StyleSheet.create({
   container: {
@@ -16,6 +17,7 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
+
   image: {
     resizeMode: "cover",
     height: 360,
@@ -49,4 +51,19 @@ export default styles = StyleSheet.create({
     justifyContent: "center",
     margin: 5,
   },
+
+  FormText: {
+    width: "90%",
+    backgroundColor: theme.colors.primary,
+    margin: 5
+  },
+
+  buttonDisabled: {
+    backgroundColor: theme.colors.text,
+    marginVertical: 20,
+    width: 230,
+    height: 60,
+    alignItems: "center",
+    alignContent: "center",
+  }
 });

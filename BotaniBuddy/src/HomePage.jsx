@@ -6,7 +6,6 @@ import styles from "./Designs/styles";
 
 export default function HomePage({ navigation }) {
   const theme = useTheme();
-  console.log(navigation)
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {
     return <Text>Loading</Text>;
