@@ -4,7 +4,7 @@ import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
 
-export default function HomePage({ navigation }) {
+export default function FindMyPlant({ navigation }) {
   const theme = useTheme();
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {
@@ -21,7 +21,7 @@ export default function HomePage({ navigation }) {
           textColor={theme.colors.text}
           style={styles.button}
           onPress={() => {
-            navigation.navigate("MyGarden");
+            navigation.navigate("FindPlantbySearch");
           }}
         >
           <Text
@@ -31,7 +31,7 @@ export default function HomePage({ navigation }) {
               paddingTop: 15,
             }}
           >
-            My Garden
+            Search Plant Details
           </Text>
         </Button>
 
@@ -40,25 +40,8 @@ export default function HomePage({ navigation }) {
           buttonColor={theme.colors.tertiary}
           style={styles.button}
           textColor={theme.colors.text}
-        >
-          <Text
-            style={{
-              fontFamily: "Itim_400Regular",
-              fontSize: 30,
-              paddingTop: 15,
-            }}
-          >
-            Daily Tasks
-          </Text>
-        </Button>
-        <Button
-          mode="contained"
-          buttonColor={theme.colors.tertiary}
-          textColor={theme.colors.text}
-          style={styles.button}
           onPress={() => {
-            console.log("pressed");
-            navigation.navigate("FindMyPlant");
+            navigation.navigate("FindPlantbyImage");
           }}
         >
           <Text
@@ -68,7 +51,7 @@ export default function HomePage({ navigation }) {
               paddingTop: 15,
             }}
           >
-            Find My Plant
+            Oh no! I forgot my plant name
           </Text>
         </Button>
         <Image
