@@ -1,11 +1,12 @@
 import { Image, View } from "react-native";
-import { Button, useTheme, Text } from "react-native-paper";
+import { Button, useTheme, Text} from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
 
 export default function HomePage({ navigation }) {
   const theme = useTheme();
+  console.log(navigation)
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {
     return <Text>Loading</Text>;
@@ -20,7 +21,6 @@ export default function HomePage({ navigation }) {
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.button}
-          rippleColor={theme.colors.secondary}
           onPress={() => {
             navigation.navigate("MyGarden");
           }}
@@ -35,6 +35,7 @@ export default function HomePage({ navigation }) {
             My Garden
           </Text>
         </Button>
+     
         <Button
           mode="contained"
           buttonColor={theme.colors.tertiary}
