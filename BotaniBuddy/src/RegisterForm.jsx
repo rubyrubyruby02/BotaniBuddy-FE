@@ -5,9 +5,10 @@ import Header from "./Header";
 import styles from "./Designs/styles";
 import { useState } from "react";
 
-export default function LoginForm({ navigation }) {
+export default function RegisterForm({ navigation }) {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <View style={styles.container}>
@@ -31,14 +32,31 @@ export default function LoginForm({ navigation }) {
         mode={"outlined"}
         activeOutlineColor="black"
       />
+      <TextInput
+        style={styles.FormText}
+        autoCapitalize="none"
+        secureTextEntry={true}
+        label="Confirm password"
+        value={confirmPassword}
+        onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
+        mode={"outlined"}
+        activeOutlineColor="black"
+      />
       <Button
         mode="contained"
         buttonColor={theme.colors.tertiary}
         textColor={theme.colors.text}
         style={
-          text === "" || password === "" ? styles.buttonDisabled : styles.button
+          password === confirmPassword && password !== "" && text !== ""
+            ? styles.button
+            : styles.buttonDisabled
         }
-        disabled={text === "" || password === ""}
+        disabled={
+          password !== confirmPassword ||
+          password === "" ||
+          confirmPassword === "" ||
+          text === ""
+        }
         onPress={() => {
           navigation.navigate("HomePage");
         }}
@@ -50,9 +68,15 @@ export default function LoginForm({ navigation }) {
             paddingTop: 15,
           }}
         >
-          Login
+          Register
         </Text>
       </Button>
+      <Text>{password !== confirmPassword ? "Passwords must match" : ""}</Text>
+      <Text>
+        {password === "" || confirmPassword === "" || text === ""
+          ? "Fields must not be empty"
+          : ""}
+      </Text>
     </View>
   );
 }

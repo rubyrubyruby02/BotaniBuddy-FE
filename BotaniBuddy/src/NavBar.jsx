@@ -39,7 +39,6 @@ export default function Navbar({ navigation, currentPage }) {
             testID="homeButton"
             onPress={()=> {
               handleButtonPress('myGarden')
-              console.log(navigation)
               navigation.navigate('MyGarden')
             }}
 

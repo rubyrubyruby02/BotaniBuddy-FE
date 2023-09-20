@@ -34,6 +34,25 @@ export default function LoginPage({ navigation }) {
           Login
         </Text>
       </Button>
+      <Button
+        mode="contained"
+        buttonColor={theme.colors.tertiary}
+        textColor={theme.colors.text}
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate("RegisterForm");
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 30,
+            paddingTop: 15,
+          }}
+        >
+          Register
+        </Text>
+      </Button>
       <Image
         source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
         style={styles.image}
