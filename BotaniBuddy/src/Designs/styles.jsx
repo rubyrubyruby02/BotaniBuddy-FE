@@ -17,7 +17,6 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
-
   image: {
     resizeMode: "cover",
     height: 360,
@@ -76,5 +75,13 @@ export default styles = StyleSheet.create({
     marginTop: "15%",
     marginBottom: "10%",
     width: "80%"
-  }
+  },
+  cameraButton: {
+    width: 180,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10,
+    marginRight: 10,
+  },
 });

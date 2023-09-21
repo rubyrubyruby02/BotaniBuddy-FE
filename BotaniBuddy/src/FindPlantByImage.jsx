@@ -1,17 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Camera, CameraType } from "expo-camera";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  Dimensions,
-  Platform,
-} from "react-native";
+import { Text, View, Image, Dimensions, Platform } from "react-native";
+import { Button } from "react-native-paper";
 import styles from "./Designs/styles";
 import * as FileSystem from "expo-file-system";
+import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 
 export default function FindPlantbyImage({ navigation }) {
   const [type, setType] = useState(CameraType.back);
@@ -19,22 +12,21 @@ export default function FindPlantbyImage({ navigation }) {
   const [capturedImage, setCapturedImage] = useState(null);
   const [base64Image, setBase64Image] = useState(null);
 
-  const [cameraRef, setCameraRef] = useState(null);
+  const cameraRef = useRef()
 
   const [imagePadding, setImagePadding] = useState(0);
   const [ratio, setRatio] = useState("4:3");
   const { height, width } = Dimensions.get("window");
   const screenRatio = height / width;
   const [isRatioSet, setIsRatioSet] = useState(false);
-
-  console.log(imagePadding, ratio, height, width, screenRatio, isRatioSet);
+  const [fontsLoaded] = useFonts({ Itim_400Regular });
 
   const prepareRatio = async () => {
     let desiredRatio = "4:3";
     if (Platform.OS === "android") {
-      console.log("before ratios");
-      const ratios = await cameraRef.getSupportedRatiosAsync();
-      console.log(ratios, "< ratios");
+
+      const ratios = await cameraRef.current.getSupportedRatiosAsync();
+
       let distances = {};
       let realRatios = {};
       let minDistance = null;
@@ -65,7 +57,7 @@ export default function FindPlantbyImage({ navigation }) {
       // Set a flag so we don't do this
       // calculation each time the screen refreshes
       setIsRatioSet(true);
-      console.log(imagePadding);
+
     }
   };
 
@@ -103,6 +95,7 @@ export default function FindPlantbyImage({ navigation }) {
       const source = data.uri;
       if (source) {
         setCapturedImage(source);
+        console.log(source)
         loadImageBase64(source);
       }
     }
@@ -121,7 +114,7 @@ export default function FindPlantbyImage({ navigation }) {
   };
 
   const post64Data = async (base64Image) => {
-    console.log(base64Image);
+    
   };
 
   return (
@@ -133,33 +126,66 @@ export default function FindPlantbyImage({ navigation }) {
             { marginTop: imagePadding, marginBottom: imagePadding },
           ]}
           type={type}
-          ref={(ref) => setCameraRef(ref)}
+          ref={cameraRef}
           onCameraReady={setCameraReady}
           ratio={ratio}
         >
-          <View style={styles.buttonContainer}>
-            <Button
-              style={styles.button}
-              onPress={toggleCameraType}
-              title="Flip camera"
-              color="white"
-            ></Button>
-          </View>
-          <View>
-            <Button
-              style={styles.button}
-              onPress={takePicture}
-              title="Take Pic"
-              color="white"
-            ></Button>
+          <View style={{ position: "absolute", bottom: 0}}>
+            <View style={styles.buttonContainer}>
+              <Button
+                style={styles.cameraButton}
+                buttonColor={theme.colors.tertiary}
+                textColor={theme.colors.text}
+                onPress={toggleCameraType}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 20,
+                    paddingTop: 5,
+                  }}
+                >
+                  Flip Camera
+                </Text>
+              </Button>
+              <Button
+                style={styles.cameraButton}
+                onPress={takePicture}
+                buttonColor={theme.colors.tertiary}
+                textColor={theme.colors.text}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 20,
+                    paddingTop: 5
+                  }}
+                >
+                  Take picture
+                </Text>
+              </Button>
+            </View>
           </View>
         </Camera>
       ) : (
-        <View style={styles.previewImage}>
+        <View style={styles.cameraContainer}>
           <Image
             source={{ uri: capturedImage }}
-            style={{ width: 400, height: 400 }}
+            style={styles.camera}
           ></Image>
+          <Button
+          style={[styles.cameraButton,{position: "absolute", left: 100, bottom: 0}]}
+          buttonColor={theme.colors.tertiary}
+          textColor={theme.colors.text}>
+            <Text
+            style={{
+              fontFamily: "Itim_400Regular",
+              fontSize: 20,
+              paddingTop: 5
+            }}>
+              Search
+            </Text>
+          </Button>
         </View>
       )}
     </View>
