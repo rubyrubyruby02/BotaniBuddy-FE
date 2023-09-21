@@ -72,4 +72,9 @@ export default styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
+  searchbar: {
+    marginTop: "15%",
+    marginBottom: "10%",
+    width: "80%"
+  }
 });
