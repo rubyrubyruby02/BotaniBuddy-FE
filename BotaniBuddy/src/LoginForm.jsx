@@ -8,9 +8,11 @@ import { useState } from "react";
 export default function LoginForm({ navigation }) {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
-
+  const [isCorrectLogin, setIsCorrectLogin] = useState(false)
+  const [completeForm, setCompleteForm] = useState({username:"", password:""})
   return (
     <View style={styles.container}>
+      {console.log(completeForm)}
       <Header />
       <TextInput
         style={styles.FormText}
@@ -40,7 +42,14 @@ export default function LoginForm({ navigation }) {
         }
         disabled={text === "" || password === ""}
         onPress={() => {
-          navigation.navigate("HomePage");
+          setCompleteForm({username: text, password: password})
+          
+          {console.log(completeForm)}
+          if (isCorrectLogin){
+            navigation.navigate("HomePage");
+          } else{
+            <Text>Incorrect Login</Text>
+          }
         }}
       >
         <Text
