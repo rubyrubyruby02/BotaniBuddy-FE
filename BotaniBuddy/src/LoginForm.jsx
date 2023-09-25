@@ -4,12 +4,27 @@ import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
 import { useState } from "react";
+import {logIn} from "../Utils/api.js" 
+
+
 
 export default function LoginForm({ navigation }) {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
   const [isCorrectLogin, setIsCorrectLogin] = useState(false)
   const [completeForm, setCompleteForm] = useState({username:"", password:""})
+
+
+  const checkLogin = (text, password) => {
+    setCompleteForm({username: text, password: password})
+    {console.log(completeForm)} 
+
+    logIn(completeForm).then(({result}) => {
+      console.log(result)
+    })
+    
+  }
+ 
   return (
     <View style={styles.container}>
       {console.log(completeForm)}
@@ -41,10 +56,10 @@ export default function LoginForm({ navigation }) {
           text === "" || password === "" ? styles.buttonDisabled : styles.button
         }
         disabled={text === "" || password === ""}
+
         onPress={() => {
-          setCompleteForm({username: text, password: password})
-          
-          {console.log(completeForm)}
+          checkLogin(text, password)
+
           if (isCorrectLogin){
             navigation.navigate("HomePage");
           } else{
