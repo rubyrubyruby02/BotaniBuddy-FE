@@ -3,6 +3,7 @@ import { Button, useTheme, Text } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
+import Navbar from "./NavBar";
 
 export default function FindMyPlant({ navigation }) {
   const theme = useTheme();
@@ -15,13 +16,15 @@ export default function FindMyPlant({ navigation }) {
     <>
       <View style={styles.container}>
         <Header />
+        <Navbar navigation={navigation}
+        currentPage={"findPlant"}/>
         <Button
           mode="contained"
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.button}
           onPress={() => {
-            navigation.navigate("FindPlantbySearch");
+            navigation.navigate("FindPlantBySearch");
           }}
         >
           <Text
@@ -41,7 +44,7 @@ export default function FindMyPlant({ navigation }) {
           style={styles.button}
           textColor={theme.colors.text}
           onPress={() => {
-            navigation.navigate("FindPlantbyImage");
+            navigation.navigate("FindPlantByImage");
           }}
         >
           <Text
