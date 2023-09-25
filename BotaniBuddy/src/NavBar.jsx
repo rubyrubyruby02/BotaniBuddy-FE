@@ -50,7 +50,7 @@ export default function Navbar({ navigation, currentPage }) {
                 padding: 0,
               }}
             >
-              Home Page
+              My Garden
             </Text>
           </Button>
           <Button

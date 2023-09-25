@@ -1,15 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
 import { Button, Text, TouchableRipple, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import Navbar from "./NavBar";
+import {getPlantButtons, getPlantInfos} from "../utils/api"
 
 export default function MyGarden({navigation}) {
-  
-  const theme = useTheme();
+  const [plantsArray, setPlantsArray] = useState([]);
+  const [plantInfosArray, setPlantInfosArray] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [buttonStates, setButtonStates] = useState({plant1: false, plant2: false, plant3: false})
   const [fontsLoaded] = useFonts({ Itim_400Regular });
+  const theme = useTheme();
 
   const handleButtonPress = (buttonName) => {
     setButtonStates((currentState) => {
@@ -20,18 +23,41 @@ export default function MyGarden({navigation}) {
       copyState[buttonName] = true
       return copyState
     })
-    
-    
-    
   }
+
+  useEffect(() => {
+    const user_id = "650da470f65780777749fea5"
+    getPlantButtons(user_id)
+      .then(({data}) => {
+        return data.myPlants
+      })
+      .then((plantsArray) => {
+        const promises = plantsArray.map((plant) => {
+            return getPlantInfos(user_id, plant)
+          })
+        return Promise.all(promises);
+      })
+      .then((myPlant) => {
+        setPlantInfosArray(myPlant)
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [])
 
   if (!fontsLoaded) {
     return <Text>Loading</Text>;
   }
+  // if (isLoading) {
+  //   return <Text>Loading Button</Text>;
+  // }
+
   return (
     <View style={styles.container}>
       <Header />
       <Navbar currentPage={"myGarden"} navigation={navigation}/>
+      {isLoading ? <Text>Loading Button</Text> :
       <ScrollView horizontal>
         <View style={styles.buttonContainer}>
           <Button
@@ -95,6 +121,7 @@ export default function MyGarden({navigation}) {
         </View>
         
       </ScrollView>
+    }
       <Image
           source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
           style={styles.image}

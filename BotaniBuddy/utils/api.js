@@ -41,3 +41,25 @@ exports.registerUser = (text, password) => {
         return error
     })
 } 
+
+exports.getPlantButtons = (user_id) => {
+    return axiosInstance
+        .get(`api/users/${user_id}/plants`)
+        .then((response) => {
+            return response
+        })
+        .catch((error) => {
+            return error
+        })
+}
+
+exports.getPlantInfos = (user_id, plant_id) => {
+    return axiosInstance
+        .get(`api/users/${user_id}/plants/${plant_id}`)
+        .then(({data}) => {
+            return data
+        })
+        .catch((error) => {
+            return error
+        })
+}
