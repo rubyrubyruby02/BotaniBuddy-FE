@@ -7,14 +7,20 @@ const axiosInstance = axios.create({
 })
 
 
-exports.logIn = (completeForm) =>{
+exports.logIn = (password, text) =>{
+
+    const completeForm = {
+        username: text,
+        password: password
+    }
+
 
    return axiosInstance.post(`api/login`, completeForm)
     .then((response)=>{
+      
         return response
     })
     .catch((error)=>{
-        console.log(error);
         return error
     })
 }

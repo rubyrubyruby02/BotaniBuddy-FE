@@ -9,36 +9,50 @@ import {logIn} from "../Utils/api.js"
 
 
 export default function LoginForm({ navigation }) {
+
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
+
   const [isCorrectLogin, setIsCorrectLogin] = useState(false)
-  const [completeForm, setCompleteForm] = useState({username:"", password:""})
-  const [loginError, setloginError]= useState("")
+  const [loginError, setloginError]= useState(false)
+  const [isLoading, setisLoading] = useState(false)
 
-  const checkLogin = (text, password) => {
-    setCompleteForm({username: text, password: password})
-    {console.log(completeForm)} 
+  const checkLogin = () => {
+ 
+    logIn(password, text)
 
-    logIn(completeForm)
     .then(({data}) => {
+
+      setisLoading(true)
 
       if(data.user.msg === "Login succesful"){
         setIsCorrectLogin(true)
+        setisLoading(false)
         navigation.navigate("HomePage")
       }
-      else {
-        setloginError("Incorrect Login, please try again")
-       
-      }
+
+     
     })
+    .catch(()=> {
+      setisLoading(false)
+      setloginError(true)
+    })
+    
   }
 
-
-  {loginError ? (
+  if(isLoading){
     <View>
-      <Text>{loginError}</Text>
+      <Text style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 30,
+            paddingTop: 15,
+          }}>
+            Loading
+            </Text>
     </View>
-  ) : null}
+    
+  }
+
  
   return (
     <View style={styles.container}>
@@ -72,7 +86,7 @@ export default function LoginForm({ navigation }) {
         disabled={text === "" || password === ""}
 
         onPress={() => {
-          checkLogin(text, password)
+          checkLogin()
         }}
       >
         <Text
@@ -85,6 +99,20 @@ export default function LoginForm({ navigation }) {
           Login
         </Text>
       </Button>
+
+    
+       {loginError && (
+        <Text style={{
+          fontFamily: "Itim_400Regular",
+          fontSize: 30,
+          paddingTop: 15,
+        }}>
+          Incorrect login, please try again
+          </Text>
+      )}
+     
+
     </View>
+
   );
 }
