@@ -61,7 +61,7 @@ export default function Navbar({ navigation, currentPage }) {
             compact="true"
             onPress={() => {
               handleButtonPress('findPlant')
-              // navigation.navigate("MyGarden");
+              navigation.navigate("FindMyPlant");
             }}
           >
             <Text

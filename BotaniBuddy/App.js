@@ -9,6 +9,9 @@ import LoginForm from "./src/LoginForm";
 import MyGarden from "./src/MyGarden";
 import Navbar from "./src/NavBar";
 import RegisterForm from "./src/RegisterForm";
+import FindMyPlant from "./src/FindMyPlant";
+import FindPlantByImage from "./src/FindPlantByImage";
+import FindPlantBySearch from "./src/FindPlantBySearch";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +30,9 @@ export default function App() {
           <Stack.Screen name="HomePage" component={HomePage} />
           <Stack.Screen name="MyGarden" component={MyGarden} />
           <Stack.Screen name="NavBar" component={Navbar} />
+          <Stack.Screen name="FindMyPlant" component={FindMyPlant} />
+          <Stack.Screen name="FindPlantByImage" component={FindPlantByImage} />
+          <Stack.Screen name="FindPlantBySearch" component={FindPlantBySearch} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

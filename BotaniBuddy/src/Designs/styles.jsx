@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import theme from "./themes"
+import theme from "./themes";
 
 export default styles = StyleSheet.create({
   container: {
@@ -17,7 +17,6 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
-
   image: {
     resizeMode: "cover",
     height: 360,
@@ -55,7 +54,7 @@ export default styles = StyleSheet.create({
   FormText: {
     width: "90%",
     backgroundColor: theme.colors.primary,
-    margin: 5
+    margin: 5,
   },
 
   buttonDisabled: {
@@ -65,5 +64,24 @@ export default styles = StyleSheet.create({
     height: 60,
     alignItems: "center",
     alignContent: "center",
-  }
+  },
+  cameraContainer: {
+    flex: 1,
+  },
+  camera: {
+    flex: 1,
+  },
+  searchbar: {
+    marginTop: "15%",
+    marginBottom: "10%",
+    width: "80%"
+  },
+  cameraButton: {
+    width: 180,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10,
+    marginRight: 10,
+  },
 });
