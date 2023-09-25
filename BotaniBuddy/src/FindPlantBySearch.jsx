@@ -9,12 +9,19 @@ import Navbar from "./NavBar";
 export default function FindPlantBySearch({ navigation }) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const checkSearchQuery = (searchQuery) => {
-    searchBar(searchQuery).then((result) => {
-      if (typeof result !== "string") {
-        const strignified = JSON.stringify(result);
-        console.log(strignified, "result");
+
+  const checkSearchQuery = () => {
+    searchBar(searchQuery).then((data) => {
+      const queryObject = {
+        "name": searchQuery
       }
+
+      return queryObject
+      console.log(data, 'data in then')
+      // if (typeof result !== "string") {
+      //   const strignified = JSON.stringify(result);
+      //   console.log(strignified, "result");
+      // }
     });
   };
 
