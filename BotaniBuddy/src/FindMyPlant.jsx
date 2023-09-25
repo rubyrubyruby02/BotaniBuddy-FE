@@ -16,8 +16,7 @@ export default function FindMyPlant({ navigation }) {
     <>
       <View style={styles.container}>
         <Header />
-        <Navbar navigation={navigation}
-        currentPage={"findPlant"}/>
+        <Navbar navigation={navigation} currentPage={"findPlant"} />
         <Button
           mode="contained"
           buttonColor={theme.colors.tertiary}
@@ -57,10 +56,10 @@ export default function FindMyPlant({ navigation }) {
             Oh no! I forgot my plant name
           </Text>
         </Button>
-        <Image
+        {/* <Image
           source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
           style={styles.image}
-        ></Image>
+        ></Image> */}
       </View>
     </>
   );
