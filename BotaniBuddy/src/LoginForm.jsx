@@ -4,15 +4,58 @@ import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
 import { useState } from "react";
+import {logIn} from "../Utils/api.js" 
+
+
 
 export default function LoginForm({ navigation }) {
+
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
+
   const [isCorrectLogin, setIsCorrectLogin] = useState(false)
-  const [completeForm, setCompleteForm] = useState({username:"", password:""})
+  const [loginError, setloginError]= useState(false)
+  const [isLoading, setisLoading] = useState(false)
+
+  const checkLogin = () => {
+ 
+    logIn(password, text)
+
+    .then(({data}) => {
+
+      setisLoading(true)
+
+      if(data.user.msg === "Login succesful"){
+        setIsCorrectLogin(true)
+        setisLoading(false)
+        navigation.navigate("HomePage")
+      }
+
+     
+    })
+    .catch(()=> {
+      setisLoading(false)
+      setloginError(true)
+    })
+    
+  }
+
+  if(isLoading){
+    <View>
+      <Text style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 30,
+            paddingTop: 15,
+          }}>
+            Loading
+            </Text>
+    </View>
+    
+  }
+
+ 
   return (
     <View style={styles.container}>
-      {console.log(completeForm)}
       <Header />
       <TextInput
         style={styles.FormText}
@@ -41,15 +84,9 @@ export default function LoginForm({ navigation }) {
           text === "" || password === "" ? styles.buttonDisabled : styles.button
         }
         disabled={text === "" || password === ""}
+
         onPress={() => {
-          setCompleteForm({username: text, password: password})
-          
-          {console.log(completeForm)}
-          if (isCorrectLogin){
-            navigation.navigate("HomePage");
-          } else{
-            <Text>Incorrect Login</Text>
-          }
+          checkLogin()
         }}
       >
         <Text
@@ -62,6 +99,20 @@ export default function LoginForm({ navigation }) {
           Login
         </Text>
       </Button>
+
+    
+       {loginError && (
+        <Text style={{
+          fontFamily: "Itim_400Regular",
+          fontSize: 30,
+          paddingTop: 15,
+        }}>
+          Incorrect login, please try again
+          </Text>
+      )}
+     
+
     </View>
+
   );
 }
