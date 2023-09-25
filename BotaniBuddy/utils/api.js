@@ -1,13 +1,43 @@
-import axios from "axios";
+import axios from "axios"
+
 
 const axiosInstance = axios.create({
-  baseURL: "tbc",
-});
+    baseURL: `https://creepy-gray-magpie.cyclic.cloud/`, 
+    headers: {}
+})
 
-export function postImage(image, user_id) {
-  return axiosInstance
-    .post(`/api/users/${user_id}/plants/addByImage`, image)
-    .then((response) => {
-      //some stuff
-    });
+
+exports.logIn = (password, text) =>{
+
+    const completeForm = {
+        username: text,
+        password: password
+    }
+
+
+   return axiosInstance.post(`api/login`, completeForm)
+    .then((response)=>{
+      
+        return response
+    })
+    .catch((error)=>{
+        return error
+    })
 }
+
+
+exports.registerUser = (text, password) => {
+
+    const newUser = {
+        username: text, 
+        password: password
+    }
+
+    return axiosInstance.post('api/register', newUser)
+    .then((response)=> {
+        return response
+    })
+    .catch((error)=> {
+        return error
+    })
+} 

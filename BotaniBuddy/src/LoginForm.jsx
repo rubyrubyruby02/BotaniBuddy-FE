@@ -4,7 +4,7 @@ import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
 import { useState } from "react";
-import {logIn} from "../Utils/api.js" 
+import {logIn} from "../utils/api.js" 
 
 
 
@@ -106,6 +106,7 @@ export default function LoginForm({ navigation }) {
           fontFamily: "Itim_400Regular",
           fontSize: 30,
           paddingTop: 15,
+          textAlign: "center"
         }}>
           Incorrect login, please try again
           </Text>
