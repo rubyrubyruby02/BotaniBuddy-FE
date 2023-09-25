@@ -53,10 +53,10 @@ export default function LoginPage({ navigation }) {
           Register
         </Text>
       </Button>
-      <Image
+      {/* <Image
         source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
         style={styles.image}
-      ></Image>
+      ></Image> */}
     </View>
   );
 }
