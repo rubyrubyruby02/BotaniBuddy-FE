@@ -13,21 +13,35 @@ export default function LoginForm({ navigation }) {
   const [password, setPassword] = useState("");
   const [isCorrectLogin, setIsCorrectLogin] = useState(false)
   const [completeForm, setCompleteForm] = useState({username:"", password:""})
-
+  const [loginError, setloginError]= useState("")
 
   const checkLogin = (text, password) => {
     setCompleteForm({username: text, password: password})
     {console.log(completeForm)} 
 
-    logIn(completeForm).then(({result}) => {
-      console.log(result)
+    logIn(completeForm)
+    .then(({data}) => {
+
+      if(data.user.msg === "Login succesful"){
+        setIsCorrectLogin(true)
+        navigation.navigate("HomePage")
+      }
+      else {
+        setloginError("Incorrect Login, please try again")
+       
+      }
     })
-    
   }
+
+
+  {loginError ? (
+    <View>
+      <Text>{loginError}</Text>
+    </View>
+  ) : null}
  
   return (
     <View style={styles.container}>
-      {console.log(completeForm)}
       <Header />
       <TextInput
         style={styles.FormText}
@@ -59,12 +73,6 @@ export default function LoginForm({ navigation }) {
 
         onPress={() => {
           checkLogin(text, password)
-
-          if (isCorrectLogin){
-            navigation.navigate("HomePage");
-          } else{
-            <Text>Incorrect Login</Text>
-          }
         }}
       >
         <Text

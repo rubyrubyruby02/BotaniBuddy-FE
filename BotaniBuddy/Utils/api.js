@@ -9,12 +9,8 @@ const axiosInstance = axios.create({
 
 exports.logIn = (completeForm) =>{
 
-    console.log("inside axios func")
-    console.log(completeForm, "in axios")
-
    return axiosInstance.post(`api/login`, completeForm)
     .then((response)=>{
-        console.log(response, "response");
         return response
     })
     .catch((error)=>{
