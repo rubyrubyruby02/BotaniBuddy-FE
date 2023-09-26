@@ -12,29 +12,41 @@ import RegisterForm from "./src/RegisterForm";
 import FindMyPlant from "./src/FindMyPlant";
 import FindPlantByImage from "./src/FindPlantByImage";
 import FindPlantBySearch from "./src/FindPlantBySearch";
+// import { useState, createContext } from "react";
+import { UserProvider } from "./src/UserContext";
 
+// export const Context = createContext();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  // const [userID, setUserID] = useState("");
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            contentStyle: { backgroundColor: theme.colors.primary },
-          }}
-        >
-          <Stack.Screen name="LoginPage" component={LoginPage} />
-          <Stack.Screen name="LoginForm" component={LoginForm} />
-          <Stack.Screen name="RegisterForm" component={RegisterForm} />
-          <Stack.Screen name="HomePage" component={HomePage} />
-          <Stack.Screen name="MyGarden" component={MyGarden} />
-          <Stack.Screen name="NavBar" component={Navbar} />
-          <Stack.Screen name="FindMyPlant" component={FindMyPlant} />
-          <Stack.Screen name="FindPlantByImage" component={FindPlantByImage} />
-          <Stack.Screen name="FindPlantBySearch" component={FindPlantBySearch} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <UserProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              contentStyle: { backgroundColor: theme.colors.primary },
+            }}
+          >
+            <Stack.Screen name="LoginPage" component={LoginPage} />
+            <Stack.Screen name="LoginForm" component={LoginForm} />
+            <Stack.Screen name="RegisterForm" component={RegisterForm} />
+            <Stack.Screen name="HomePage" component={HomePage} />
+            <Stack.Screen name="MyGarden" component={MyGarden} />
+            <Stack.Screen name="NavBar" component={Navbar} />
+            <Stack.Screen name="FindMyPlant" component={FindMyPlant} />
+            <Stack.Screen
+              name="FindPlantByImage"
+              component={FindPlantByImage}
+            />
+            <Stack.Screen
+              name="FindPlantBySearch"
+              component={FindPlantBySearch}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </UserProvider>
     </PaperProvider>
   );
 }
