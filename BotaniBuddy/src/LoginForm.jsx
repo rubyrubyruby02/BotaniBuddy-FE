@@ -7,27 +7,24 @@ import { useState } from "react";
 import { logIn } from "../utils/api.js";
 
 
-import { Context } from "../App";
+import { UserContext } from "./user";
 import { useContext } from "react";
 
 export default function LoginForm({ navigation }) {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
-
-
-
   const [isCorrectLogin, setIsCorrectLogin] = useState(false);
   const [loginError, setloginError] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
-  const [userID, setUserID] = useContext(Context);
+  const {userID, setUserID} = useContext(UserContext);
 
   const checkLogin = () => {
     logIn(password, text)
       .then(({ data }) => {
   
         setUserID(data.user.user_id);
-
+        console.log(userID, 'in loginForm')
         setisLoading(true);
 
         if (data.user.msg === "Login succesful") {
@@ -35,6 +32,9 @@ export default function LoginForm({ navigation }) {
           setisLoading(false);
           navigation.navigate("HomePage");
         }
+      })
+      .then(() => {
+        console.log(userID, 'in second then')
       })
       .catch(() => {
         setisLoading(false);
@@ -88,6 +88,7 @@ export default function LoginForm({ navigation }) {
         disabled={text === "" || password === ""}
         onPress={() => {
           checkLogin();
+          
         }}
       >
         <Text

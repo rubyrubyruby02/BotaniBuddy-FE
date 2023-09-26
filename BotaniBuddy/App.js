@@ -12,16 +12,17 @@ import RegisterForm from "./src/RegisterForm";
 import FindMyPlant from "./src/FindMyPlant";
 import FindPlantByImage from "./src/FindPlantByImage";
 import FindPlantBySearch from "./src/FindPlantBySearch";
-import { useState, createContext } from "react";
+import {UserProvider} from './src/user'
 
-export const Context = createContext();
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-const [userID, setUserID] = useState("");
+
+
   return (
     <PaperProvider theme={theme}>
-      <Context.Provider value={[userID, setUserID]}>
+      <UserProvider >
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
@@ -45,7 +46,7 @@ const [userID, setUserID] = useState("");
             />
           </Stack.Navigator>
         </NavigationContainer>
-      </Context.Provider>
+      </UserProvider>
     </PaperProvider>
   );
 }

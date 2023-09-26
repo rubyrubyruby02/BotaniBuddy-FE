@@ -1,16 +1,19 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
 import { Button, Text, TouchableRipple, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import Navbar from "./NavBar";
+import { UserContext } from "./user";
+
 
 export default function MyGarden({navigation}) {
   
   const theme = useTheme();
   const [buttonStates, setButtonStates] = useState({plant1: false, plant2: false, plant3: false})
   const [fontsLoaded] = useFonts({ Itim_400Regular });
-
+  const {userID, setUserID} = useContext(UserContext);
+  console.log(userID, 'in my garden')
   const handleButtonPress = (buttonName) => {
     setButtonStates((currentState) => {
       const copyState = {...currentState}
