@@ -12,7 +12,11 @@ import RegisterForm from "./src/RegisterForm";
 import FindMyPlant from "./src/FindMyPlant";
 import FindPlantByImage from "./src/FindPlantByImage";
 import FindPlantBySearch from "./src/FindPlantBySearch";
+
 import {UserProvider} from './src/user'
+
+
+import ErrorPage from "./src/ErrorPage";
 
 
 const Stack = createNativeStackNavigator();
@@ -22,6 +26,7 @@ export default function App() {
 
   return (
     <PaperProvider theme={theme}>
+
       <UserProvider >
         <NavigationContainer>
           <Stack.Navigator

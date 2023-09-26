@@ -5,17 +5,7 @@ const axiosInstance = axios.create({
   headers: {},
 });
 
-exports.logIn = (completeForm) => {
-  return axiosInstance
-    .post(`api/login`, completeForm)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      console.log(error);
-      return error;
-    });
-};
+
 
 exports.searchBar = (name, user_id) => {
   return axiosInstance
@@ -28,6 +18,7 @@ exports.searchBar = (name, user_id) => {
       return error;
     });
 };
+
 
 exports.logIn = (password, text) => {
   const completeForm = {
@@ -45,18 +36,33 @@ exports.logIn = (password, text) => {
     });
 };
 
+
 exports.registerUser = (text, password) => {
   const newUser = {
     username: text,
     password: password,
   };
 
+
+
+  return axiosInstance.post('api/register', newUser)
+  .then((response)=> {
+      return response
+  })
+  .catch((error)=> {
+      return error
+  })
+} 
+
+export function postImage(data, user_id) {
   return axiosInstance
-    .post("api/register", newUser)
-    .then((response) => {
-      return response;
+    .post("api/users/1/identify_plants_image", data, {
+      headers: {
+        "Content-Type": `multipart/form-data`,
+      },
     })
-    .catch((error) => {
-      return error;
-    });
-};
+    .then(({data}) => {
+      return data
+    })
+}
+
