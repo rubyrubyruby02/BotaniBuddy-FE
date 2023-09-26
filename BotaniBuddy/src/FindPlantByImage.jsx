@@ -6,7 +6,9 @@ import styles from "./Designs/styles";
 import * as FileSystem from "expo-file-system";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import { postImage } from "../utils/api";
-import * as ImageManipulator from "expo-image-manipulator"
+// import * as ImageManipulator from "expo-image-manipulator"
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
+
 
 export default function FindPlantbyImage({ navigation }) {
   const [type, setType] = useState(CameraType.back);
@@ -105,10 +107,10 @@ export default function FindPlantbyImage({ navigation }) {
       // console.log(pictureSizes);
       const data = await cameraRef.current.takePictureAsync();
       const source = data.uri;
-      const manipResult = await ImageManipulator.manipulateAsync(
+      const manipResult = await manipulateAsync(
         source,
         [],
-        { format: 'jpeg' , compress: 0.3 }
+        {compress: 0.4, format: SaveFormat.JPEG}
       )
 
       if (source) {
@@ -129,7 +131,7 @@ export default function FindPlantbyImage({ navigation }) {
     postImage(formData)
       .then(({ plantName, score }) => {
         console.log(plantName, score)
-        // navigation.navigate("ImageResultPage")
+        navigation.navigate("ImageResultPage", {plantName, score, image})
       })
       .catch((err) => {
         console.log(err);
@@ -137,6 +139,7 @@ export default function FindPlantbyImage({ navigation }) {
       });
   };
 
+  const plantPhoto = {uri: capturedImage }
   return (
     <View style={styles.cameraContainer}>
       {!capturedImage ? (
@@ -148,8 +151,8 @@ export default function FindPlantbyImage({ navigation }) {
           type={type}
           ref={cameraRef}
           onCameraReady={setCameraReady}
-          ratio={ratio}
-          pictureSize="1280x720"
+          // ratio={ratio}
+          // pictureSize="1280x720"
         >
           <View style={{ position: "absolute", bottom: 0 }}>
             <View style={styles.buttonContainer}>

@@ -6,17 +6,13 @@ const axiosInstance = axios.create({
 });
 
 exports.searchBar = (name, user_id) => {
-  console.log("inside plant function axios");
-  console.log(name, "in axios");
-
   return axiosInstance
     .post(`/api/users/650da89de046626a01ae5752/add_by_search`, { name })
     .then((response) => {
-      console.log(response.data, "in axios then block");
       return response.data;
     })
     .catch((error) => {
-      console.log(error, "error");
+      console.log(error);
       return error;
     });
 };
