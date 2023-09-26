@@ -2,6 +2,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import { Button, Text, TouchableRipple, useTheme, Card } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import React, { useEffect, useState } from "react";
+import styles from "./Designs/styles";
 
 exports.MyGardenPlantCard = ({plantInfosArray}) => {
 
@@ -41,10 +42,10 @@ exports.MyGardenPlantCard = ({plantInfosArray}) => {
 
 return (
 
-<View >
+<View styles={styles.container} >
 
-
-    <ScrollView horizontal>
+  
+    <ScrollView horizontal style={{ flexGrow:0 }}>
     <View style={styles.buttonContainer}>
 
         {plantInfosArray.map((plant)=> {
@@ -81,21 +82,61 @@ return (
         }
     </View>
   </ScrollView>
+  
 
 
 
 {console.log(selectedPlantInfo)}
 
 {selectedPlant && (
+<View style={styles.container}>
+  {/* name, description, where live, how often water, stuff not to do, toxicity */}
+  <ScrollView vertical style={{width: "80%"}}>
+    <View style={styles.card}>
+      <Text style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    lineHeight: 30,
+                    color: "#ffffff"
+                  }}>{selectedPlantInfo.commonName} </Text>
+      <Text style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 14,
+                    lineHeight: 30,
+                    color: "#ffffff"
+                  }}>{selectedPlantInfo.wateringPeriod.value} days</Text>
+      <Text style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 14,
+                    lineHeight: 30,
+                    color: "#ffffff"
+                  }}>Indoor: {String(selectedPlantInfo.indoor)}</Text>
+      <Text style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 14,
+                    lineHeight: 30,
+                    color: "#ffffff"
+                  }}>Toxic to pets: {String(selectedPlantInfo.poisonousToPets)}</Text>
+      <Text style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 14,
+                    lineHeight: 30,
+                    color: "#ffffff"
+                  }}>Toxic to humans: {String(selectedPlantInfo.poisonousToHumans)}</Text>
 
-    <Card>
-      <Card.Title title={selectedPlantInfo.commonName} subtitle="Card Subtitle" />
-      <Card.Content>
-        <Text variant="titleLarge">{selectedPlantInfo.commonName}</Text>
-        <Text variant="bodyMedium">Card content</Text>
-      </Card.Content>
-    </Card>
+      <Text style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 14,
+                    color: "#ffffff"
+                  }}>{selectedPlantInfo.description}</Text>
+                  
+    
+    </View>
+    </ScrollView>
+    </View>
   )
+  
 
 }
 

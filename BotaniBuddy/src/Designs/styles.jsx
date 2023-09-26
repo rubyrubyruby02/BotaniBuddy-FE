@@ -6,6 +6,12 @@ export default styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+  containerMyGarden: {
+    flex: 1,
+    alignItems: "center",
+    position: "absolute",
+
+  },
   header: {
     height: 100,
     paddingTop: 30,
@@ -84,4 +90,14 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  card: {
+    backgroundColor: theme.colors.onCustomDarkGreen,
+    flex: 1,
+    alignContent: "center",
+    padding: 15,
+    borderRadius: 10,
+    // width: 250,
+    // height: 3000
+    marginBottom: 300
+  }
 });
