@@ -12,7 +12,6 @@ exports.searchBar = (name, user_id) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
       return error;
     });
 };
@@ -56,17 +55,12 @@ export function postImage(data, user_id) {
         "Content-Type": `multipart/form-data`,
       },
     })
-
     .then(({ data }) => {
       return data;
     });
 }
 
-    .then(({data}) => {
-      return data
-    })
 
-} 
 
 exports.getPlantButtons = (user_id) => {
     return axiosInstance
@@ -89,3 +83,4 @@ exports.getPlantInfos = (user_id, plant_id) => {
             return error
         })
 
+}
