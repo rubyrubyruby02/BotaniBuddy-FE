@@ -5,28 +5,28 @@ import Header from "./Header";
 import styles from "./Designs/styles";
 import { useState } from "react";
 import { logIn } from "../utils/api.js";
-import { useUser } from "./UserContext";
 
-// import { Context } from "../App";
-// import { useContext } from "react";
+
+import { Context } from "../App";
+import { useContext } from "react";
 
 export default function LoginForm({ navigation }) {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
 
-  const { userID, login } = useUser();
+
 
   const [isCorrectLogin, setIsCorrectLogin] = useState(false);
   const [loginError, setloginError] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
-  // const [userID, setUserID] = useContext(Context);
+  const [userID, setUserID] = useContext(Context);
 
   const checkLogin = () => {
     logIn(password, text)
       .then(({ data }) => {
-        useUser(data.user.user_id);
-        // setUserID(data.user.user_id);
+  
+        setUserID(data.user.user_id);
 
         setisLoading(true);
 
