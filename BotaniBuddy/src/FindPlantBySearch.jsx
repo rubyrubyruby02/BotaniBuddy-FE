@@ -5,12 +5,15 @@ import { Searchbar, Button, Text } from "react-native-paper";
 import { searchBar } from "../utils/api";
 import Header from "./Header";
 import Navbar from "./NavBar";
+import { UserContext } from "./user";
+import { useContext } from "react";
 
 export default function FindPlantBySearch({ navigation }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [sendPlant, setSendPlant] = useState(false);
+  const { userID, setUserID } = useContext(UserContext);
   const checkSearchQuery = () => {
-    searchBar(searchQuery).then((data) => {
+    searchBar(searchQuery, userID).then((data) => {
       const queryObject = {
         name: searchQuery,
       };

@@ -7,13 +7,15 @@ import * as FileSystem from "expo-file-system";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import { postImage } from "../utils/api";
 // import * as ImageManipulator from "expo-image-manipulator"
-import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
-
+import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
+import { UserContext } from "./user";
+import { useContext } from "react";
 
 export default function FindPlantbyImage({ navigation }) {
   const [type, setType] = useState(CameraType.back);
   const [hasPermission, setHasPermission] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
+  const { userID, setUserID } = useContext(UserContext);
 
   const cameraRef = useRef();
 
@@ -92,31 +94,16 @@ export default function FindPlantbyImage({ navigation }) {
 
   const takePicture = async () => {
     if (cameraRef.current) {
-      // const supportedRatios = await cameraRef.current.getSupportedRatiosAsync();
-
-      // const pictureSizes = await Promise.all(
-      //   supportedRatios.map((ratio) =>
-      //     cameraRef.current.getAvailablePictureSizesAsync(ratio).catch(() => [])
-      //   )
-      // );
-
-      // const validRatios = supportedRatios.filter(
-      //   (ratio, index) => pictureSizes[index].length > 0
-      // );
-      // console.log(validRatios);
-      // console.log(pictureSizes);
       const data = await cameraRef.current.takePictureAsync();
       const source = data.uri;
-      const manipResult = await manipulateAsync(
-        source,
-        [],
-        {compress: 0.4, format: SaveFormat.JPEG}
-      )
+      const manipResult = await manipulateAsync(source, [], {
+        compress: 0.4,
+        format: SaveFormat.JPEG,
+      });
 
       if (source) {
         setCapturedImage(manipResult.uri);
       }
-
     }
   };
 
@@ -128,10 +115,10 @@ export default function FindPlantbyImage({ navigation }) {
     const formData = new FormData();
     const blob = { uri: image, name: filename, type };
     formData.append("image", blob);
-    postImage(formData)
+    postImage(formData, userID)
       .then(({ plantName, score }) => {
-        console.log(plantName, score)
-        navigation.navigate("ImageResultPage", {plantName, score, image})
+        console.log(plantName, score);
+        navigation.navigate("ImageResultPage", { plantName, score, image });
       })
       .catch((err) => {
         console.log(err);
@@ -139,7 +126,7 @@ export default function FindPlantbyImage({ navigation }) {
       });
   };
 
-  const plantPhoto = {uri: capturedImage }
+  const plantPhoto = { uri: capturedImage };
   return (
     <View style={styles.cameraContainer}>
       {!capturedImage ? (
@@ -193,7 +180,10 @@ export default function FindPlantbyImage({ navigation }) {
         </Camera>
       ) : (
         <View style={styles.cameraContainer}>
-          <Image source={{ uri: capturedImage }} style={styles.resultImage}></Image>
+          <Image
+            source={{ uri: capturedImage }}
+            style={styles.resultImage}
+          ></Image>
           <Button
             style={[
               styles.cameraButton,

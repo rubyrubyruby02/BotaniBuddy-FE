@@ -5,11 +5,9 @@ const axiosInstance = axios.create({
   headers: {},
 });
 
-
-
 exports.searchBar = (name, user_id) => {
   return axiosInstance
-    .post(`/api/users/650da89de046626a01ae5752/add_by_search`, { name })
+    .post(`/api/users/${user_id}/add_by_search`, { name })
     .then((response) => {
       return response.data;
     })
@@ -18,7 +16,6 @@ exports.searchBar = (name, user_id) => {
       return error;
     });
 };
-
 
 exports.logIn = (password, text) => {
   const completeForm = {
@@ -36,31 +33,35 @@ exports.logIn = (password, text) => {
     });
 };
 
-
 exports.registerUser = (text, password) => {
   const newUser = {
     username: text,
     password: password,
   };
 
-
-
-  return axiosInstance.post('api/register', newUser)
-  .then((response)=> {
-      return response
-  })
-  .catch((error)=> {
-      return error
-  })
-} 
+  return axiosInstance
+    .post("api/register", newUser)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
 
 export function postImage(data, user_id) {
   return axiosInstance
-    .post("api/users/650da470f65780777749fea5/identify_plants_image", data, {
+    .post(`api/users/${user_id}/identify_plants_image`, data, {
       headers: {
         "Content-Type": `multipart/form-data`,
       },
     })
+
+    .then(({ data }) => {
+      return data;
+    });
+}
+
     .then(({data}) => {
       return data
     })
@@ -87,4 +88,4 @@ exports.getPlantInfos = (user_id, plant_id) => {
         .catch((error) => {
             return error
         })
-}
+
