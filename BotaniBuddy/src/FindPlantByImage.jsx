@@ -6,6 +6,7 @@ import styles from "./Designs/styles";
 import * as FileSystem from "expo-file-system";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import { postImage } from "../utils/api";
+import * as ImageManipulator from "expo-image-manipulator"
 
 export default function FindPlantbyImage({ navigation }) {
   const [type, setType] = useState(CameraType.back);
@@ -104,9 +105,16 @@ export default function FindPlantbyImage({ navigation }) {
       // console.log(pictureSizes);
       const data = await cameraRef.current.takePictureAsync();
       const source = data.uri;
+      const manipResult = await ImageManipulator.manipulateAsync(
+        source,
+        [],
+        { format: 'jpeg' , compress: 0.3 }
+      )
+
       if (source) {
-        setCapturedImage(source);
+        setCapturedImage(manipResult.uri);
       }
+
     }
   };
 
@@ -121,6 +129,7 @@ export default function FindPlantbyImage({ navigation }) {
     postImage(formData)
       .then(({ plantName, score }) => {
         console.log(plantName, score)
+        // navigation.navigate("ImageResultPage")
       })
       .catch((err) => {
         console.log(err);
@@ -181,11 +190,11 @@ export default function FindPlantbyImage({ navigation }) {
         </Camera>
       ) : (
         <View style={styles.cameraContainer}>
-          <Image source={{ uri: capturedImage }} style={styles.camera}></Image>
+          <Image source={{ uri: capturedImage }} style={styles.resultImage}></Image>
           <Button
             style={[
               styles.cameraButton,
-              { position: "absolute", left: 100, bottom: 0 },
+              { position: "absolute", left: 100, bottom: 200 },
             ]}
             buttonColor={theme.colors.tertiary}
             textColor={theme.colors.text}

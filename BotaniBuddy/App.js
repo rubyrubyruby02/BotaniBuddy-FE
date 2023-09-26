@@ -13,6 +13,7 @@ import FindMyPlant from "./src/FindMyPlant";
 import FindPlantByImage from "./src/FindPlantByImage";
 import FindPlantBySearch from "./src/FindPlantBySearch";
 import ErrorPage from "./src/ErrorPage";
+import ImageResultPage from "./src/ImageResultPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ export default function App() {
           <Stack.Screen name="FindPlantByImage" component={FindPlantByImage} />
           <Stack.Screen name="FindPlantBySearch" component={FindPlantBySearch} />
           <Stack.Screen name="ErrorPage" component={ErrorPage} />
+          <Stack.Screen name="ImageResultPage" component={ImageResultPage} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

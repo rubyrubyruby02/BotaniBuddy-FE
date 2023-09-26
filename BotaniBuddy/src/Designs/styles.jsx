@@ -84,4 +84,12 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  resultImage: {
+    // flex:1,
+    justifyContent: "center",
+    height: 400,
+    width: 250,
+    marginLeft: 70,
+    marginTop: 40, 
+  }
 });
