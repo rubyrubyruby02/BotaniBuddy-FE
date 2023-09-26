@@ -100,8 +100,8 @@ export default function FindPlantbyImage({ navigation }) {
       const validRatios = supportedRatios.filter(
         (ratio, index) => pictureSizes[index].length > 0
       );
-      console.log(validRatios)
-      console.log(pictureSizes)
+      console.log(validRatios);
+      console.log(pictureSizes);
       const data = await cameraRef.current.takePictureAsync();
       const source = data.uri;
       if (source) {
@@ -111,18 +111,20 @@ export default function FindPlantbyImage({ navigation }) {
   };
 
   const sendPicture = async (image) => {
-    const info = await FileSystem.getInfoAsync(image)
-    console.log(info)
+    const info = await FileSystem.getInfoAsync(image);
     const filename = image.split("/").pop();
     const match = /\.(\w+)$/.exec(filename);
     const type = match ? `image/${match[1]}` : `image`;
     const formData = new FormData();
-    const blob = { uri: image, name: filename, type }
-    // console.log(blob, blob.size)
+    const blob = { uri: image, name: filename, type };
     formData.append("image", blob);
-    console.log(formData);
-    // console.log(formData._parts)
-    postImage(formData).then(({plantName, score}))
+    postImage(formData)
+      .then(({ plantName, score }) => {
+        console.log(plantName, score)
+      })
+      .catch(() => {
+        navigation.navigate("ErrorPage");
+      });
   };
 
   return (

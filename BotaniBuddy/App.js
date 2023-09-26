@@ -12,6 +12,7 @@ import RegisterForm from "./src/RegisterForm";
 import FindMyPlant from "./src/FindMyPlant";
 import FindPlantByImage from "./src/FindPlantByImage";
 import FindPlantBySearch from "./src/FindPlantBySearch";
+import ErrorPage from "./src/ErrorPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ export default function App() {
           <Stack.Screen name="FindMyPlant" component={FindMyPlant} />
           <Stack.Screen name="FindPlantByImage" component={FindPlantByImage} />
           <Stack.Screen name="FindPlantBySearch" component={FindPlantBySearch} />
+          <Stack.Screen name="ErrorPage" component={ErrorPage} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

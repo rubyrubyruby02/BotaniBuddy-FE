@@ -1,14 +1,63 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://creepy-gray-magpie.cyclic.cloud/api"/* "http://192.168.1.226:3000/api" */,
+  baseURL: `https://creepy-gray-magpie.cyclic.cloud/`,
+  headers: {},
 });
-//https://creepy-gray-magpie.cyclic.cloud/api/users/650da470f65780777749fea5/identify_plants_image
-export function postImage(data, user_id) {
-  // dev: 650da8f0eb4e280152239ead
-  // real: 650da470f65780777749fea5
+
+exports.searchBar = (name, user_id) => {
+  console.log("inside plant function axios");
+  console.log(name, "in axios");
+
   return axiosInstance
-    .post("/users/650da470f65780777749fea5/identify_plants_image", data, {
+    .post(`/api/users/650da89de046626a01ae5752/add_by_search`, { name })
+    .then((response) => {
+      console.log(response.data, "in axios then block");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error, "error");
+      return error;
+    });
+};
+
+exports.logIn = (password, text) =>{
+
+  const completeForm = {
+      username: text,
+      password: password
+  }
+
+
+ return axiosInstance.post(`api/login`, completeForm)
+  .then((response)=>{
+    
+      return response
+  })
+  .catch((error)=>{
+      return error
+  })
+}
+
+exports.registerUser = (text, password) => {
+
+  const newUser = {
+      username: text, 
+      password: password
+  }
+
+  return axiosInstance.post('api/register', newUser)
+  .then((response)=> {
+      return response
+  })
+  .catch((error)=> {
+      return error
+  })
+} 
+
+export function postImage(data, user_id) {
+  return axiosInstance
+    .post("api/users/1/identify_plants_image", data, {
       headers: {
         "Content-Type": `multipart/form-data`,
       },
@@ -16,11 +65,4 @@ export function postImage(data, user_id) {
     .then(({data}) => {
       return data
     })
-    .catch((err) => {
-      for (const key in err) {
-        console.log(`${key}: ${err[key]}`);
-      }
-      console.log((err.response.data.msg));
-      console.log((err.response.data.detail))
-    });
 }
