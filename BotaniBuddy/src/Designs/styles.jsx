@@ -42,7 +42,6 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
-
   NavBarButton: {
     minWidth: "30%",
     height: 60,
@@ -84,4 +83,16 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  card:{
+    backgroundColor: theme.colors.tertiary,
+    height: 200,
+    width: 300,
+    flex: 1,
+  },
+  scrollView:{
+    flex: 1,
+    height: 100,
+    flexGrow: 1
+  }
+  
 });
