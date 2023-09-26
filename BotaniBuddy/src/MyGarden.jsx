@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Image} from "react-native";
 import {Text, TouchableRipple, useTheme } from "react-native-paper";
@@ -35,8 +36,6 @@ export default function MyGarden({ navigation }) {
         console.error("Error:", error);
       });
   }, []);
-
-
 
   return (
     <View style={styles.container}>

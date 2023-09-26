@@ -5,14 +5,17 @@ import { Button } from "react-native-paper";
 import styles from "./Designs/styles";
 import * as FileSystem from "expo-file-system";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
+import { postImage } from "../utils/api";
+// import * as ImageManipulator from "expo-image-manipulator"
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
+
 
 export default function FindPlantbyImage({ navigation }) {
   const [type, setType] = useState(CameraType.back);
   const [hasPermission, setHasPermission] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
-  const [base64Image, setBase64Image] = useState(null);
 
-  const cameraRef = useRef()
+  const cameraRef = useRef();
 
   const [imagePadding, setImagePadding] = useState(0);
   const [ratio, setRatio] = useState("4:3");
@@ -24,7 +27,6 @@ export default function FindPlantbyImage({ navigation }) {
   const prepareRatio = async () => {
     let desiredRatio = "4:3";
     if (Platform.OS === "android") {
-
       const ratios = await cameraRef.current.getSupportedRatiosAsync();
 
       let distances = {};
@@ -57,7 +59,6 @@ export default function FindPlantbyImage({ navigation }) {
       // Set a flag so we don't do this
       // calculation each time the screen refreshes
       setIsRatioSet(true);
-
     }
   };
 
@@ -91,32 +92,54 @@ export default function FindPlantbyImage({ navigation }) {
 
   const takePicture = async () => {
     if (cameraRef.current) {
+      // const supportedRatios = await cameraRef.current.getSupportedRatiosAsync();
+
+      // const pictureSizes = await Promise.all(
+      //   supportedRatios.map((ratio) =>
+      //     cameraRef.current.getAvailablePictureSizesAsync(ratio).catch(() => [])
+      //   )
+      // );
+
+      // const validRatios = supportedRatios.filter(
+      //   (ratio, index) => pictureSizes[index].length > 0
+      // );
+      // console.log(validRatios);
+      // console.log(pictureSizes);
       const data = await cameraRef.current.takePictureAsync();
       const source = data.uri;
+      const manipResult = await manipulateAsync(
+        source,
+        [],
+        {compress: 0.4, format: SaveFormat.JPEG}
+      )
+
       if (source) {
-        setCapturedImage(source);
-        console.log(source)
-        loadImageBase64(source);
+        setCapturedImage(manipResult.uri);
       }
+
     }
   };
 
-  const loadImageBase64 = async (capturedImage) => {
-    const fileInfo = await FileSystem.getInfoAsync(capturedImage);
-    if (fileInfo.exists) {
-      const base64Data = await FileSystem.readAsStringAsync(capturedImage, {
-        encoding: FileSystem.EncodingType.Base64,
+  const sendPicture = async (image) => {
+    const info = await FileSystem.getInfoAsync(image);
+    const filename = image.split("/").pop();
+    const match = /\.(\w+)$/.exec(filename);
+    const type = match ? `image/${match[1]}` : `image`;
+    const formData = new FormData();
+    const blob = { uri: image, name: filename, type };
+    formData.append("image", blob);
+    postImage(formData)
+      .then(({ plantName, score }) => {
+        console.log(plantName, score)
+        navigation.navigate("ImageResultPage", {plantName, score, image})
+      })
+      .catch((err) => {
+        console.log(err);
+        navigation.navigate("ErrorPage");
       });
-      const moreEndcodedData = "data:image/jpeg;base64," + base64Data;
-      setBase64Image(moreEndcodedData);
-      // postImageName(moreEndcodedData);
-    }
   };
 
-  const post64Data = async (base64Image) => {
-    
-  };
-
+  const plantPhoto = {uri: capturedImage }
   return (
     <View style={styles.cameraContainer}>
       {!capturedImage ? (
@@ -128,9 +151,10 @@ export default function FindPlantbyImage({ navigation }) {
           type={type}
           ref={cameraRef}
           onCameraReady={setCameraReady}
-          ratio={ratio}
+          // ratio={ratio}
+          // pictureSize="1280x720"
         >
-          <View style={{ position: "absolute", bottom: 0}}>
+          <View style={{ position: "absolute", bottom: 0 }}>
             <View style={styles.buttonContainer}>
               <Button
                 style={styles.cameraButton}
@@ -158,7 +182,7 @@ export default function FindPlantbyImage({ navigation }) {
                   style={{
                     fontFamily: "Itim_400Regular",
                     fontSize: 20,
-                    paddingTop: 5
+                    paddingTop: 5,
                   }}
                 >
                   Take picture
@@ -169,20 +193,23 @@ export default function FindPlantbyImage({ navigation }) {
         </Camera>
       ) : (
         <View style={styles.cameraContainer}>
-          <Image
-            source={{ uri: capturedImage }}
-            style={styles.camera}
-          ></Image>
+          <Image source={{ uri: capturedImage }} style={styles.resultImage}></Image>
           <Button
-          style={[styles.cameraButton,{position: "absolute", left: 100, bottom: 0}]}
-          buttonColor={theme.colors.tertiary}
-          textColor={theme.colors.text}>
+            style={[
+              styles.cameraButton,
+              { position: "absolute", left: 100, bottom: 200 },
+            ]}
+            buttonColor={theme.colors.tertiary}
+            textColor={theme.colors.text}
+            onPress={() => sendPicture(capturedImage)}
+          >
             <Text
-            style={{
-              fontFamily: "Itim_400Regular",
-              fontSize: 20,
-              paddingTop: 5
-            }}>
+              style={{
+                fontFamily: "Itim_400Regular",
+                fontSize: 20,
+                paddingTop: 5,
+              }}
+            >
               Search
             </Text>
           </Button>

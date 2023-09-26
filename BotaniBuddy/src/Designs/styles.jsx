@@ -90,6 +90,7 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+
   card: {
     backgroundColor: theme.colors.onCustomDarkGreen,
     flex: 1,
@@ -99,5 +100,14 @@ export default styles = StyleSheet.create({
     // width: 250,
     // height: 3000
     marginBottom: 300
+  },
+  resultImage: {
+    // flex:1,
+    justifyContent: "center",
+    height: 350,
+    width: 200,
+    marginLeft: 90,
+    marginTop: 20, 
+
   }
 });
