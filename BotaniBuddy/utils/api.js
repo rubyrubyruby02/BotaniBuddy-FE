@@ -5,14 +5,12 @@ const axiosInstance = axios.create({
   headers: {},
 });
 
-exports.searchBar = (name, user_id) => {
-  console.log("inside plant function axios");
-  console.log(name, "in axios");
 
+
+exports.searchBar = (name, user_id) => {
   return axiosInstance
     .post(`/api/users/650da89de046626a01ae5752/add_by_search`, { name })
     .then((response) => {
-      console.log(response.data, "in axios then block");
       return response.data;
     })
     .catch((error) => {
@@ -21,30 +19,31 @@ exports.searchBar = (name, user_id) => {
     });
 };
 
-exports.logIn = (password, text) =>{
 
+exports.logIn = (password, text) => {
   const completeForm = {
-      username: text,
-      password: password
-  }
+    username: text,
+    password: password,
+  };
 
+  return axiosInstance
+    .post(`api/login`, completeForm)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
 
- return axiosInstance.post(`api/login`, completeForm)
-  .then((response)=>{
-    
-      return response
-  })
-  .catch((error)=>{
-      return error
-  })
-}
 
 exports.registerUser = (text, password) => {
-
   const newUser = {
-      username: text, 
-      password: password
-  }
+    username: text,
+    password: password,
+  };
+
+
 
   return axiosInstance.post('api/register', newUser)
   .then((response)=> {
@@ -66,3 +65,4 @@ export function postImage(data, user_id) {
       return data
     })
 }
+
