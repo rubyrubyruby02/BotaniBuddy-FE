@@ -17,7 +17,7 @@ import {UserProvider} from './src/user'
 
 
 import ErrorPage from "./src/ErrorPage";
-
+import ImageResultPage from "./src/ImageResultPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +49,8 @@ export default function App() {
               name="FindPlantBySearch"
               component={FindPlantBySearch}
             />
+          <Stack.Screen name="ImageResultPage" component={ImageResultPage} />
+          <Stack.Screen name="ErrorPage" component={ErrorPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </UserProvider>
