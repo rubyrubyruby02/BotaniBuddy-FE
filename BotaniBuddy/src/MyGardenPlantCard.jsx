@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, FlatList, FlatListComponent } from "react-native";
 import { Button, Text, TouchableRipple, useTheme, Card } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import React, { useEffect, useState } from "react";
@@ -47,11 +47,10 @@ return (
   
     <ScrollView horizontal style={{ flexGrow:0 }}>
     <View style={styles.buttonContainer}>
-
-        {plantInfosArray.map((plant)=> {
-
+        {plantInfosArray.map((plant, index)=> {
             return (
                 <Button
+                key={index}
                 mode="contained"
                 buttonColor={
                   buttonStates.plant1
@@ -75,7 +74,6 @@ return (
                   {plant.myPlant.commonName}
                 </Text>
               </Button>
-        
             )
 
         })
