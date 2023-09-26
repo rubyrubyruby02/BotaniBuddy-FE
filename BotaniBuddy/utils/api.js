@@ -57,7 +57,7 @@ exports.registerUser = (text, password) => {
 
 export function postImage(data, user_id) {
   return axiosInstance
-    .post("api/users/1/identify_plants_image", data, {
+    .post("api/users/650da470f65780777749fea5/identify_plants_image", data, {
       headers: {
         "Content-Type": `multipart/form-data`,
       },

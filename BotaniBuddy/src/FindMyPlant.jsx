@@ -53,7 +53,7 @@ export default function FindMyPlant({ navigation }) {
               paddingTop: 15,
             }}
           >
-            Oh no! I forgot my plant name
+            Image Identification
           </Text>
         </Button>
         {/* <Image

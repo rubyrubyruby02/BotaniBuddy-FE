@@ -89,19 +89,19 @@ export default function FindPlantbyImage({ navigation }) {
 
   const takePicture = async () => {
     if (cameraRef.current) {
-      const supportedRatios = await cameraRef.current.getSupportedRatiosAsync();
+      // const supportedRatios = await cameraRef.current.getSupportedRatiosAsync();
 
-      const pictureSizes = await Promise.all(
-        supportedRatios.map((ratio) =>
-          cameraRef.current.getAvailablePictureSizesAsync(ratio).catch(() => [])
-        )
-      );
+      // const pictureSizes = await Promise.all(
+      //   supportedRatios.map((ratio) =>
+      //     cameraRef.current.getAvailablePictureSizesAsync(ratio).catch(() => [])
+      //   )
+      // );
 
-      const validRatios = supportedRatios.filter(
-        (ratio, index) => pictureSizes[index].length > 0
-      );
-      console.log(validRatios);
-      console.log(pictureSizes);
+      // const validRatios = supportedRatios.filter(
+      //   (ratio, index) => pictureSizes[index].length > 0
+      // );
+      // console.log(validRatios);
+      // console.log(pictureSizes);
       const data = await cameraRef.current.takePictureAsync();
       const source = data.uri;
       if (source) {
@@ -122,7 +122,8 @@ export default function FindPlantbyImage({ navigation }) {
       .then(({ plantName, score }) => {
         console.log(plantName, score)
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         navigation.navigate("ErrorPage");
       });
   };
