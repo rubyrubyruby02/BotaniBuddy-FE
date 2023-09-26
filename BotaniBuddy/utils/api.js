@@ -88,6 +88,3 @@ exports.getPlantInfos = (user_id, plant_id) => {
             return error
         })
 }
-
-}
-
