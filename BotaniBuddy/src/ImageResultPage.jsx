@@ -5,32 +5,35 @@ import Navbar from "./NavBar";
 import { useRoute } from "@react-navigation/native";
 import styles from "./Designs/styles";
 import { searchBar } from "../utils/api";
+import { UserContext } from "./user";
+import { useContext } from "react";
 
 export default function ImageResultPage({ navigation }) {
   const route = useRoute();
   const { plantName, score, image } = route.params;
   const [visible, setVisible] = useState(false);
   const [isError, setIsError] = useState(false);
+  const { userID, setUserID } = useContext(UserContext);
 
   const hideDialog = () => {
-    if(isError){
-        setVisible(false);
-        navigation.navigate("FindMyPlant");
+    if (isError) {
+      setVisible(false);
+      navigation.navigate("FindMyPlant");
     } else {
-        setVisible(false);
-        navigation.navigate("MyGarden");
+      setVisible(false);
+      navigation.navigate("MyGarden");
     }
   };
 
   const addPlant = (plantName) => {
-    setIsError(false)
-    searchBar(plantName)
+    setIsError(false);
+    searchBar(plantName, userID)
       .then((data) => {
-        if(data.code === "ERR_BAD_REQUEST"){
-            setIsError(true)
-            setVisible(true)
-        } else{ 
-            setVisible(true);
+        if (data.code === "ERR_BAD_REQUEST") {
+          setIsError(true);
+          setVisible(true);
+        } else {
+          setVisible(true);
         }
       })
       .catch((err) => {
@@ -115,9 +118,7 @@ export default function ImageResultPage({ navigation }) {
               <Dialog visible={visible} onDismiss={hideDialog}>
                 <Dialog.Title>Error!</Dialog.Title>
                 <Dialog.Content>
-                  <Text variant="bodyMedium">
-                    Error adding plant
-                  </Text>
+                  <Text variant="bodyMedium">Error adding plant</Text>
                 </Dialog.Content>
                 <Dialog.Actions>
                   <Button onPress={hideDialog}>Done</Button>
