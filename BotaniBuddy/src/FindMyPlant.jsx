@@ -29,8 +29,8 @@ export default function FindMyPlant({ navigation }) {
           <Text
             style={{
               fontFamily: "Itim_400Regular",
-              fontSize: 30,
-              paddingTop: 15,
+              fontSize: 20,
+              paddingTop: 10,
             }}
           >
             Search Plant Details
@@ -49,17 +49,17 @@ export default function FindMyPlant({ navigation }) {
           <Text
             style={{
               fontFamily: "Itim_400Regular",
-              fontSize: 30,
-              paddingTop: 15,
+              fontSize: 20,
+              paddingTop: 10,
             }}
           >
             Image Identification
           </Text>
         </Button>
-        {/* <Image
+        <Image
           source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
           style={styles.image}
-        ></Image> */}
+        ></Image>
       </View>
     </>
   );

@@ -38,22 +38,6 @@ export default function HomePage({ navigation }) {
         <Button
           mode="contained"
           buttonColor={theme.colors.tertiary}
-          style={styles.button}
-          textColor={theme.colors.text}
-        >
-          <Text
-            style={{
-              fontFamily: "Itim_400Regular",
-              fontSize: 30,
-              paddingTop: 15,
-            }}
-          >
-            Daily Tasks
-          </Text>
-        </Button>
-        <Button
-          mode="contained"
-          buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.button}
           onPress={() => {
@@ -70,10 +54,28 @@ export default function HomePage({ navigation }) {
             Find My Plant
           </Text>
         </Button>
-        {/* <Image
+
+        <Button
+          mode="contained"
+          buttonColor={theme.colors.tertiary}
+          style={styles.button}
+          textColor={theme.colors.text}
+        >
+          <Text
+            style={{
+              fontFamily: "Itim_400Regular",
+              fontSize: 30,
+              paddingTop: 15,
+            }}
+          >
+            Daily Tasks
+          </Text>
+        </Button>
+       
+        <Image
           source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
           style={styles.image}
-        ></Image> */}
+        ></Image>
       </View>
     </>
   );

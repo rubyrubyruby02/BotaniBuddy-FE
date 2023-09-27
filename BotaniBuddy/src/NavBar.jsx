@@ -21,9 +21,6 @@ export default function Navbar({ navigation, currentPage }) {
       copyState[buttonName] = true
       return copyState
     })
-    
-    
-    
   }
 
   return (
