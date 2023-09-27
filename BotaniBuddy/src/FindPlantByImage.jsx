@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Camera, CameraType } from "expo-camera";
 import { Text, View, Image, Dimensions, Platform } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, ActivityIndicator } from "react-native-paper";
 import styles from "./Designs/styles";
+import Header from "./Header";
+import Navbar from "./NavBar";
 import * as FileSystem from "expo-file-system";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import { postImage } from "../utils/api";
-// import * as ImageManipulator from "expo-image-manipulator"
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 import { UserContext } from "./user";
 import { useContext } from "react";
@@ -16,6 +17,9 @@ export default function FindPlantbyImage({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const { userID, setUserID } = useContext(UserContext);
+  const [isTakingPicture, setIsTakingPicture] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
   const cameraRef = useRef();
 
@@ -30,7 +34,6 @@ export default function FindPlantbyImage({ navigation }) {
     let desiredRatio = "4:3";
     if (Platform.OS === "android") {
       const ratios = await cameraRef.current.getSupportedRatiosAsync();
-
       let distances = {};
       let realRatios = {};
       let minDistance = null;
@@ -38,7 +41,6 @@ export default function FindPlantbyImage({ navigation }) {
         const parts = ratio.split(":");
         const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
         realRatios[ratio] = realRatio;
-        // ratio can't be taller than screen, so we don't want an abs()
         const distance = screenRatio - realRatio;
         distances[ratio] = realRatio;
         if (minDistance == null) {
@@ -49,25 +51,22 @@ export default function FindPlantbyImage({ navigation }) {
           }
         }
       }
-      // set the best match
       desiredRatio = minDistance;
-      //  calculate the difference between the camera width and the screen height
       const remainder = Math.floor(
         (height - realRatios[desiredRatio] * width) / 2
       );
-      // set the preview padding and preview ratio
       setImagePadding(remainder);
       setRatio(desiredRatio);
-      // Set a flag so we don't do this
-      // calculation each time the screen refreshes
       setIsRatioSet(true);
     }
   };
 
   const setCameraReady = async () => {
+    setIsLoading(true);
     if (!isRatioSet) {
       await prepareRatio();
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -93,6 +92,7 @@ export default function FindPlantbyImage({ navigation }) {
   }
 
   const takePicture = async () => {
+    setIsTakingPicture(true);
     if (cameraRef.current) {
       const data = await cameraRef.current.takePictureAsync();
       const source = data.uri;
@@ -105,9 +105,11 @@ export default function FindPlantbyImage({ navigation }) {
         setCapturedImage(manipResult.uri);
       }
     }
+    setIsTakingPicture(false);
   };
 
   const sendPicture = async (image) => {
+    setIsSearching(true);
     const info = await FileSystem.getInfoAsync(image);
     const filename = image.split("/").pop();
     const match = /\.(\w+)$/.exec(filename);
@@ -117,14 +119,31 @@ export default function FindPlantbyImage({ navigation }) {
     formData.append("image", blob);
     postImage(formData, userID)
       .then(({ plantName, score }) => {
-        console.log(plantName, score);
+        setIsSearching(false);
         navigation.navigate("ImageResultPage", { plantName, score, image });
       })
       .catch((err) => {
         console.log(err);
+        setIsSearching(false);
         navigation.navigate("ErrorPage");
       });
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <Text
+          style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 30,
+            paddingTop: 15,
+          }}
+        >
+          Loading
+        </Text>
+      </View>
+    );
+  }
 
   const plantPhoto = { uri: capturedImage };
   return (
@@ -133,13 +152,12 @@ export default function FindPlantbyImage({ navigation }) {
         <Camera
           style={[
             styles.camera,
-            { marginTop: imagePadding, marginBottom: imagePadding },
+            { paddingTop: imagePadding, paddingBottom: imagePadding },
           ]}
           type={type}
           ref={cameraRef}
           onCameraReady={setCameraReady}
-          // ratio={ratio}
-          // pictureSize="1280x720"
+          ratio={ratio}
         >
           <View style={{ position: "absolute", bottom: 0 }}>
             <View style={styles.buttonContainer}>
@@ -160,10 +178,15 @@ export default function FindPlantbyImage({ navigation }) {
                 </Text>
               </Button>
               <Button
-                style={styles.cameraButton}
+                style={
+                  isTakingPicture
+                    ? styles.cameraButtonDisabled
+                    : styles.cameraButton
+                }
                 onPress={takePicture}
                 buttonColor={theme.colors.tertiary}
                 textColor={theme.colors.text}
+                disabled={isTakingPicture}
               >
                 <Text
                   style={{
@@ -179,31 +202,40 @@ export default function FindPlantbyImage({ navigation }) {
           </View>
         </Camera>
       ) : (
-        <View style={styles.cameraContainer}>
-          <Image
-            source={{ uri: capturedImage }}
-            style={styles.resultImage}
-          ></Image>
-          <Button
-            style={[
-              styles.cameraButton,
-              { position: "absolute", left: 100, bottom: 200 },
-            ]}
-            buttonColor={theme.colors.tertiary}
-            textColor={theme.colors.text}
-            onPress={() => sendPicture(capturedImage)}
-          >
-            <Text
-              style={{
-                fontFamily: "Itim_400Regular",
-                fontSize: 20,
-                paddingTop: 5,
-              }}
-            >
-              Search
-            </Text>
-          </Button>
-        </View>
+        <>
+          <Header />
+          <Navbar navigation={navigation} currentPage="findPlant" />
+          <View style={[styles.cameraContainer, { alignItems: "center" }]}>
+            <Image
+              source={{ uri: capturedImage }}
+              style={styles.resultImage}
+            ></Image>
+            <View style={{ flex: 1, justifyContent: "center" }}>
+              <Button
+                style={[
+                  isSearching ? styles.buttonDisabled : styles.button,
+                  { justifyContent: "center" },
+                ]}
+                buttonColor={theme.colors.tertiary}
+                textColor={theme.colors.text}
+                disabled={isSearching}
+                onPress={() => sendPicture(capturedImage)}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Itim_400Regular",
+                    fontSize: 20,
+                  }}
+                >
+                  Search
+                </Text>
+              </Button>
+            </View>
+            <View style={{ flex: 1, justifyContent: "top" }}>
+              {isSearching && <ActivityIndicator color="#0B3948" size={75} />}
+            </View>
+          </View>
+        </>
       )}
     </View>
   );

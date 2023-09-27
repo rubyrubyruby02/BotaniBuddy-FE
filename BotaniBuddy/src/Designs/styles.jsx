@@ -95,6 +95,15 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  cameraButtonDisabled: {
+    backgroundColor: theme.colors.text,
+    width: 180,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10,
+    marginRight: 10,
+  },
   card: {
     backgroundColor: theme.colors.onCustomDarkGreen,
     flex: 1,
@@ -106,10 +115,9 @@ export default styles = StyleSheet.create({
   },
   resultImage: {
     justifyContent: "center",
-    height: 350,
+    height: 300,
     width: 200,
-    marginLeft: 90,
-    marginTop: 20,
+    marginVertical: 10,
   },
   taskContainer: {
     flexDirection: "column", // Display components vertically

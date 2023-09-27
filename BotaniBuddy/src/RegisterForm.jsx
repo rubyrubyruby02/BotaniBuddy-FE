@@ -1,5 +1,11 @@
 import { View, Image } from "react-native";
-import { Button, useTheme, Text, TextInput } from "react-native-paper";
+import {
+  Button,
+  useTheme,
+  Text,
+  TextInput,
+  ActivityIndicator,
+} from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
@@ -18,12 +24,10 @@ export default function RegisterForm({ navigation }) {
   const { userID, setUserID } = useContext(UserContext);
 
   const postRegistration = () => {
+    setIsError(false);
+    setIsLoading(true);
     registerUser(text, password).then((response) => {
       const { data } = response;
-
-      console.log(data);
-      setIsLoading(true);
-
       if (response.status === 201) {
         setIsLoading(false);
         setUserID(data.user.user_id);
@@ -75,7 +79,10 @@ export default function RegisterForm({ navigation }) {
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={
-            password === confirmPassword && password !== "" && text !== ""
+            password === confirmPassword &&
+            password !== "" &&
+            text !== "" &&
+            !isLoading
               ? styles.button
               : styles.buttonDisabled
           }
@@ -83,7 +90,8 @@ export default function RegisterForm({ navigation }) {
             password !== confirmPassword ||
             password === "" ||
             confirmPassword === "" ||
-            text === ""
+            text === "" ||
+            isLoading
           }
           onPress={() => {
             postRegistration();
@@ -120,6 +128,7 @@ export default function RegisterForm({ navigation }) {
             : ""}
         </Text>
 
+      </View>
         {isError && (
           <Text
             style={{
@@ -127,26 +136,19 @@ export default function RegisterForm({ navigation }) {
               fontSize: 30,
               paddingTop: 15,
               textAlign: "center",
+              marginBottom: 200
             }}
           >
             Unable to register, please try again
           </Text>
         )}
-
         {isLoading && (
-          <Text
-            style={{
-              fontFamily: "Itim_400Regular",
-              fontSize: 30,
-              paddingTop: 15,
-              textAlign: "center",
-            }}
-          >
-            Loading
-          </Text>
+          <ActivityIndicator
+          color="#0B3948"
+            style={{ marginBottom: 200 }}
+            size={75}
+          />
         )}
-      </View>
-
       <View>
         <Image
           source={require("../assets/image-from-rawpixel-id-12034028-original.png")}

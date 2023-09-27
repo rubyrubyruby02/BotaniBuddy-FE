@@ -37,6 +37,7 @@ export default function HomePage({ navigation }) {
 
         <Button
           mode="contained"
+          compact="true"
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.button}
