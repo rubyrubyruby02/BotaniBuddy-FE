@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
 });
 
 exports.searchBar = (name, user_id) => {
+
   return axiosInstance
     .post(`/api/users/${user_id}/add_by_search`, { name })
     .then((response) => {
