@@ -1,5 +1,12 @@
-import { View } from "react-native";
-import { Button, useTheme, Text, TextInput } from "react-native-paper";
+import { View, Image } from "react-native";
+import {
+  Button,
+  useTheme,
+  Text,
+  TextInput,
+  ActivityIndicator,
+  MD2Colors,
+} from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import styles from "./Designs/styles";
@@ -19,11 +26,11 @@ export default function LoginForm({ navigation }) {
   const { userID, setUserID } = useContext(UserContext);
 
   const checkLogin = () => {
+    setloginError(false);
+    setisLoading(true);
     logIn(password, text)
       .then(({ data }) => {
         setUserID(data.user.user_id);
-        setisLoading(true);
-
         if (data.user.msg === "Login succesful") {
           setIsCorrectLogin(true);
           setisLoading(false);
@@ -37,77 +44,80 @@ export default function LoginForm({ navigation }) {
       });
   };
 
-  if (isLoading) {
-    <View>
-      <Text
-        style={{
-          fontFamily: "Itim_400Regular",
-          fontSize: 30,
-          paddingTop: 15,
-        }}
-      >
-        Loading
-      </Text>
-    </View>;
-  }
-
   return (
-    <View style={styles.container}>
-      <Header />
-      <TextInput
-        style={styles.FormText}
-        autoCapitalize="none"
-        label="Username"
-        value={text}
-        onChangeText={(text) => setText(text)}
-        mode={"outlined"}
-        activeOutlineColor="black"
-      />
-      <TextInput
-        style={styles.FormText}
-        autoCapitalize="none"
-        secureTextEntry={true}
-        label="Password"
-        value={password}
-        onChangeText={(password) => setPassword(password)}
-        mode={"outlined"}
-        activeOutlineColor="black"
-      />
-      <Button
-        mode="contained"
-        buttonColor={theme.colors.tertiary}
-        textColor={theme.colors.text}
-        style={
-          text === "" || password === "" ? styles.buttonDisabled : styles.button
-        }
-        disabled={text === "" || password === ""}
-        onPress={() => {
-          checkLogin();
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Itim_400Regular",
-            fontSize: 30,
-            paddingTop: 15,
+    <>
+      <View style={styles.container}>
+        <Header />
+        <TextInput
+          style={styles.FormText}
+          autoCapitalize="none"
+          label="Username"
+          value={text}
+          onChangeText={(text) => setText(text)}
+          mode={"outlined"}
+          activeOutlineColor="black"
+        />
+        <TextInput
+          style={styles.FormText}
+          autoCapitalize="none"
+          secureTextEntry={true}
+          label="Password"
+          value={password}
+          onChangeText={(password) => setPassword(password)}
+          mode={"outlined"}
+          activeOutlineColor="black"
+        />
+        <Button
+          mode="contained"
+          buttonColor={theme.colors.tertiary}
+          textColor={theme.colors.text}
+          style={
+            text === "" || password === "" || isLoading
+              ? styles.buttonDisabled
+              : styles.button
+          }
+          disabled={text === "" || password === "" || isLoading}
+          onPress={() => {
+            checkLogin();
           }}
         >
-          Login
-        </Text>
-      </Button>
+          <Text
+            style={{
+              fontFamily: "Itim_400Regular",
+              fontSize: 30,
+              paddingTop: 15,
+            }}
+          >
+            Login
+          </Text>
+        </Button>
 
-      {loginError && (
-        <Text
-          style={{
-            fontFamily: "Itim_400Regular",
-            fontSize: 30,
-            paddingTop: 15,
-            textAlign: "center",
-          }}
-        >
-          Incorrect login, please try again
-        </Text>
+        {loginError && (
+          <Text
+            style={{
+              fontFamily: "Itim_400Regular",
+              fontSize: 30,
+              paddingTop: 15,
+              textAlign: "center",
+            }}
+          >
+            Incorrect login, please try again
+          </Text>
+        )}
+      </View>
+      {isLoading && (
+        <ActivityIndicator
+        color="#0B3948"
+          style={{ marginBottom: 300 }}
+          size={75}
+        />
       )}
-    </View>
+      <View>
+        <Image
+          source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
+          style={styles.image}
+        ></Image>
+      </View>
+    </>
   );
 }

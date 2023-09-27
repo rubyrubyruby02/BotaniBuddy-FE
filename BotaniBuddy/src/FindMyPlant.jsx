@@ -19,6 +19,7 @@ export default function FindMyPlant({ navigation }) {
         <Navbar navigation={navigation} currentPage={"findPlant"} />
         <Button
           mode="contained"
+          compact="true"
           buttonColor={theme.colors.tertiary}
           textColor={theme.colors.text}
           style={styles.button}
@@ -39,6 +40,7 @@ export default function FindMyPlant({ navigation }) {
 
         <Button
           mode="contained"
+          compact="true"
           buttonColor={theme.colors.tertiary}
           style={styles.button}
           textColor={theme.colors.text}
