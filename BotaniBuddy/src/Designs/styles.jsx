@@ -87,9 +87,11 @@ export default styles = StyleSheet.create({
     flex: 1,
   },
   searchbar: {
-    marginTop: "15%",
-    marginBottom: "10%",
-    width: "80%",
+
+    marginTop: "8%",
+    marginBottom: "3%",
+    width: "80%"
+
   },
   cameraButton: {
     width: 180,

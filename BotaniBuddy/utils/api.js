@@ -6,13 +6,13 @@ const axiosInstance = axios.create({
 });
 
 exports.searchBar = (name, user_id) => {
+
   return axiosInstance
     .post(`/api/users/${user_id}/add_by_search`, { name })
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
       return error;
     });
 };
@@ -56,7 +56,6 @@ export function postImage(data, user_id) {
         "Content-Type": `multipart/form-data`,
       },
     })
-
     .then(({ data }) => {
       return data;
     });
@@ -74,12 +73,15 @@ exports.getPlantButtons = (user_id) => {
 };
 
 exports.getPlantInfos = (user_id, plant_id) => {
-  return axiosInstance
-    .get(`api/users/${user_id}/plants/${plant_id}`)
-    .then(({ data }) => {
-      return data;
-    })
-    .catch((error) => {
-      return error;
-    });
-};
+
+    return axiosInstance
+        .get(`api/users/${user_id}/plants/${plant_id}`)
+        .then(({data}) => {
+            return data
+        })
+        .catch((error) => {
+            return error
+        })
+
+}
+

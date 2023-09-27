@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, View, Image} from "react-native";
 import {Text, TouchableRipple, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
@@ -7,6 +7,7 @@ import Header from "./Header";
 import Navbar from "./NavBar";
 import { MyGardenPlantCard } from "./MyGardenPlantCard";
 import { getPlantButtons, getPlantInfos } from "../utils/api";
+import { UserContext } from "./user";
 
 export default function MyGarden({ navigation }) {
 
@@ -14,17 +15,16 @@ export default function MyGarden({ navigation }) {
   const [plantInfosArray, setPlantInfosArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-
+  const {userID, setUserID} = useContext(UserContext);
 
   useEffect(() => {
-    const user_id = "650da470f65780777749fea5";
-    getPlantButtons(user_id)
+    getPlantButtons(userID)
       .then(({ data }) => {
         return data.myPlants;
       })
       .then((plantsArray) => {
         const promises = plantsArray.map((plant) => {
-          return getPlantInfos(user_id, plant);
+          return getPlantInfos(userID, plant);
         });
         return Promise.all(promises);
       })
