@@ -97,9 +97,10 @@ exports.patchDailyTasks = (user_id, plant_id) => {
   return axiosInstance
   .patch(`/api/users/${user_id}/tasks/${plant_id}`)
   .then(({data}) => {
-    
+    console.log(data)
   })
   .catch((error) => {
+    console.log(error)
     return error
   })
 }

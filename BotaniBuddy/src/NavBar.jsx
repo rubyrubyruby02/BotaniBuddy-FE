@@ -10,7 +10,6 @@ export default function Navbar({ navigation, currentPage }) {
     findPlant: currentPage === "findPlant",
     dailyTasks: currentPage === "dailyTasks",
   });
-console.log(buttonStates)
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {
     return <Text>Loading</Text>;

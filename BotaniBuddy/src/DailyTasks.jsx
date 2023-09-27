@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Image, Text, ScrollView } from "react-native";
-import { Button, Portal, Dialog } from "react-native-paper";
+import { Button, Portal, Dialog, useTheme } from "react-native-paper";
+import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import Navbar from "./NavBar";
 import styles from "./Designs/styles";
@@ -15,11 +16,17 @@ export default function DailyTasks({ navigation }) {
   const [dailyTasks, setDailyTasks] = useState([]);
   const [isVisible, setIsVisible] = useState(false)
   const [isError, setIsError] = useState(false)
+  const [isPatched, setIsPatched] = useState(false)
+  const [fontsLoaded] = useFonts({ Itim_400Regular });
+  const [isLoading, setIsLoading] = useState(false)
+  const theme = useTheme();
 
   const { userID, setUserID } = useContext(UserContext);
-
+  console.log(dailyTasks.length, 'dailytasks length')
   useEffect(() => {
+    setIsLoading(true)
     getDailyTasks(userID).then((tasks) => {
+      console.log(tasks.tasks, 'in useEffect')
       setDailyTasks(tasks.tasks);
 
       setChecked(() => {
@@ -30,40 +37,55 @@ export default function DailyTasks({ navigation }) {
        
         return output;
       });
-      
+      setIsLoading(false)
     });
-  }, []);
+
+  }, [isPatched]);
 
   const tickTask = (plantID) => {
     setChecked((currentState) => {
       const newState = { ...currentState };
       if(newState[plantID] === false) {
         newState[plantID] = true
-        setIsVisible(true)
       } else {
         newState[plantID] = false
-        // setIsVisible(false)
       }
       return newState;
     });
     
   };
 
-  const confirmation = (user_id, plant_id) => {
-    // patchDailyTasks(user_id, plant_id)
+  const confirmation = async () => {
+    const plantsToPatch = []
+    for(const key in isChecked) {
+      if(isChecked[key] === true) {
+        plantsToPatch.push(key)
+      }
+    }
+
+    for(let i = 0; i < plantsToPatch.length; i++) {
+       await patchDailyTasks(userID, plantsToPatch[i])
+      console.log(plantsToPatch[i], 'in for loop')
+    }
+    // plantsToPatch.forEach( async (plant_id) => {
+    //   await
+      
+    // })
+    console.log(plantsToPatch)
+    setIsPatched((b) => {
+      return !b
+    })
   }
 
-  const hideDialog = (plant_id) => {
-    setIsVisible(false)
-    tickTask(plant_id)
+    
 
-  }
+
   return (
     <View style={styles.container}>
       <Header />
       <Navbar  navigation={navigation} currentPage={"dailyTasks"}/>
-      
-        <ScrollView vertical style={{ flexGrow:0, width: "80%" }}>
+
+      {isLoading ? <Text> reallyLoading </Text> : <><ScrollView vertical style={{ flexGrow:0, width: "80%" }}>
           <View style={styles.tasksCard}>
           {dailyTasks.length !== 0 &&
             dailyTasks.map((task, index) => (
@@ -74,54 +96,45 @@ export default function DailyTasks({ navigation }) {
                     style={styles.checkbox}
                     value={isChecked[task.plantID]}
                     onValueChange={() => {
-                      tickTask(task.plantID);
-                      confirmation(userID, task.plantID)
+                      tickTask(task.plantID)
+                      
                     }}
                     color={isChecked[task.plantID] ? "#0C7C59" : undefined}
                   />
                   <Text style={styles.waterText}>Water</Text>
                 </View>
-                <Portal>
-            {!isError ? (
-              <Dialog visible={isVisible} onDismiss={hideDialog}>
-                <Dialog.Title>Are you sure?</Dialog.Title>
-                <Dialog.Content>
-                  <Text variant="bodyMedium">
-                    Are you sure?
-                  </Text>
-                </Dialog.Content>
-                <Dialog.Actions>
-                  <Button onPress={() => {
-                    confirmation(userID, task.plantID)}
-                    }>Yes</Button>
-                  <Button onPress={() => {
-                    hideDialog(task.plantID)
-
-                  }}>No</Button>
-                </Dialog.Actions>
-              </Dialog>
-            ) : (
-              <Dialog visible={isVisible} onDismiss={hideDialog}>
-                <Dialog.Title>Error!</Dialog.Title>
-                <Dialog.Content>
-                  <Text variant="bodyMedium">Error adding plant</Text>
-                </Dialog.Content>
-                <Dialog.Actions>
-                  <Button onPress={hideDialog}>Done</Button>
-                </Dialog.Actions>
-              </Dialog>
-            )}
-          </Portal>
+            
               </View>
               
             ))}
+            
             </View>
         </ScrollView>
-
+        
         
 
       <View>
+      <Button
+            mode={"contained"}
+            buttonColor={theme.colors.tertiary}
+            style={styles.button}
+            textColor={theme.colors.text}
+
+            onPress={() => {
+              confirmation()
+            }}
+            >
+              <Text style={{
+                fontFamily: "Itim_400Regular",
+                paddingTop: 15,
+                fontSize: 30,
+    
+              }}>Confirm</Text>
+            </Button>
       </View>
+      </>}
+      
+        
     </View>
   );
 }

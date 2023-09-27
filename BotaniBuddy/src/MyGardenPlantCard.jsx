@@ -30,9 +30,9 @@ exports.MyGardenPlantCard = ({plantInfosArray}) => {
         
       };
 
-      if (!fontsLoaded) {
-        return <Text>Loading</Text>;
-      }
+      // if (!fontsLoaded) {
+      //   return <Text>Loading</Text>;
+      // }
 
 
       displayInfo = (plantInfo) => {
