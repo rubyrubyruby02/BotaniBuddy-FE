@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
+import { Button } from "react-native-paper";
 import Header from "./Header";
 import Navbar from "./NavBar";
 import styles from "./Designs/styles";
@@ -36,6 +37,7 @@ export default function DailyTasks({ navigation }) {
     setChecked((currentState) => {
       const newState = { ...currentState };
       newState[plantID] = true;
+      return newState
     });
   };
 
@@ -51,7 +53,7 @@ export default function DailyTasks({ navigation }) {
               <View style={styles.checkboxContainer}>
                 <Checkbox
                   style={styles.checkbox}
-                  value={JSON.stringify(isChecked[task.plantID])}
+                  value={isChecked[task.plantID]}
                   onValueChange={() => {
                     tickTask(task.plantID);
                   }}
@@ -61,7 +63,27 @@ export default function DailyTasks({ navigation }) {
               </View>
             </View>
           ))}
+
+          
       </View>
+      <View >
+      <Button
+      buttonColor={theme.colors.tertiary}
+      textColor={theme.colors.text}
+      style={styles.button}
+       mode="contained"
+       compact="true"
+       onPress={() => {
+        
+       }}>
+            <Text
+            style={{
+              fontFamily: "Itim_400Regular",
+              fontSize: 30,
+              paddingTop: 15,
+            }}>Confirm</Text>
+          </Button>
+          </View>
     </View>
   );
 }
