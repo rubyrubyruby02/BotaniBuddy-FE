@@ -98,7 +98,7 @@ export default styles = StyleSheet.create({
     borderRadius: 10,
     // width: 250,
     // height: 3000
-    marginBottom: 300,
+    marginBottom: 400,
   },
   resultImage: {
     justifyContent: "center",

@@ -85,7 +85,11 @@ export default function DailyTasks({ navigation }) {
       <Header />
       <Navbar  navigation={navigation} currentPage={"dailyTasks"}/>
 
-      {isLoading ? <Text> reallyLoading </Text> : <><ScrollView vertical style={{ flexGrow:0, width: "80%" }}>
+      {isLoading ? <Text style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 30,
+            paddingTop: 15,
+          }}>Loading </Text> : <><ScrollView vertical style={{ flexGrow:0, width: "80%" }}>
           <View style={styles.tasksCard}>
           {dailyTasks.length !== 0 &&
             dailyTasks.map((task, index) => (
