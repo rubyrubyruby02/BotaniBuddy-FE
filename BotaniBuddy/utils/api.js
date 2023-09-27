@@ -61,20 +61,19 @@ export function postImage(data, user_id) {
     });
 }
 
-
-
 exports.getPlantButtons = (user_id) => {
-    return axiosInstance
-        .get(`api/users/${user_id}/plants`)
-        .then((response) => {
-            return response
-        })
-        .catch((error) => {
-            return error
-        })
-}
+  return axiosInstance
+    .get(`api/users/${user_id}/plants`)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
 
 exports.getPlantInfos = (user_id, plant_id) => {
+
     return axiosInstance
         .get(`api/users/${user_id}/plants/${plant_id}`)
         .then(({data}) => {
@@ -85,3 +84,4 @@ exports.getPlantInfos = (user_id, plant_id) => {
         })
 
 }
+
