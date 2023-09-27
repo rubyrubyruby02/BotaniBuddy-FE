@@ -92,3 +92,14 @@ exports.getDailyTasks = (user_id) => {
       return error;
     });
 };
+
+exports.patchDailyTasks = (user_id, plant_id) => {
+  return axiosInstance
+  .patch(`/api/users/${user_id}/tasks/${plant_id}`)
+  .then(({data}) => {
+    
+  })
+  .catch((error) => {
+    return error
+  })
+}

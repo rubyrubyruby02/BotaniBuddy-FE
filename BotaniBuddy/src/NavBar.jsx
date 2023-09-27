@@ -10,22 +10,12 @@ export default function Navbar({ navigation, currentPage }) {
     findPlant: currentPage === "findPlant",
     dailyTasks: currentPage === "dailyTasks",
   });
-
+console.log(buttonStates)
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {
     return <Text>Loading</Text>;
   }
 
-  const handleButtonPress = (buttonName) => {
-    setButtonStates((currentState) => {
-      const copyState = { ...currentState };
-      for (const key in copyState) {
-        copyState[key] = false;
-      }
-      copyState[buttonName] = true;
-      return copyState;
-    });
-  };
 
   return (
     <>
@@ -43,7 +33,6 @@ export default function Navbar({ navigation, currentPage }) {
             compact="true"
             testID="homeButton"
             onPress={() => {
-              handleButtonPress("myGarden");
               navigation.navigate("MyGarden");
             }}
           >
@@ -68,7 +57,6 @@ export default function Navbar({ navigation, currentPage }) {
             style={styles.NavBarButton}
             compact="true"
             onPress={() => {
-              handleButtonPress("findPlant");
               navigation.navigate("FindMyPlant");
             }}
           >
@@ -92,7 +80,6 @@ export default function Navbar({ navigation, currentPage }) {
             style={styles.NavBarButton}
             compact="true"
             onPress={() => {
-              handleButtonPress("dailyTasks");
               navigation.navigate("DailyTasks");
             }}
           >

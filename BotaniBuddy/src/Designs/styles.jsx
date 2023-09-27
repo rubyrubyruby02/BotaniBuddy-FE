@@ -126,4 +126,7 @@ export default styles = StyleSheet.create({
   waterText: {
     fontSize: 14, // Adjust the font size as needed
   },
+  tasksCard: {
+    flex: 1,
+  }
 });

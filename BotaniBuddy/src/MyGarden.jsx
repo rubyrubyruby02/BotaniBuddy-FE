@@ -40,7 +40,7 @@ export default function MyGarden({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
-      <Navbar currentPage={"myGarden"} navigation={navigation} />
+      <Navbar  navigation={navigation} currentPage={"myGarden"}/>
 
       {isLoading ? (
         <Text
