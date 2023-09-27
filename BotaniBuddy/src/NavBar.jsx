@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { View} from "react-native";
+import { View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 
 export default function Navbar({ navigation, currentPage }) {
   const theme = useTheme();
-  const [buttonStates, setButtonStates] = useState({myGarden: currentPage === "myGarden", findPlant: currentPage === "findPlant", dailyTasks: currentPage === "dailyTasks"})
-   
+  const [buttonStates, setButtonStates] = useState({
+    myGarden: currentPage === "myGarden",
+    findPlant: currentPage === "findPlant",
+    dailyTasks: currentPage === "dailyTasks",
+  });
+
   const [fontsLoaded] = useFonts({ Itim_400Regular });
   if (!fontsLoaded) {
     return <Text>Loading</Text>;
@@ -14,17 +18,14 @@ export default function Navbar({ navigation, currentPage }) {
 
   const handleButtonPress = (buttonName) => {
     setButtonStates((currentState) => {
-      const copyState = {...currentState}
-      for(const key in copyState) {
-        copyState[key] = false
+      const copyState = { ...currentState };
+      for (const key in copyState) {
+        copyState[key] = false;
       }
-      copyState[buttonName] = true
-      return copyState
-    })
-    
-    
-    
-  }
+      copyState[buttonName] = true;
+      return copyState;
+    });
+  };
 
   return (
     <>
@@ -32,16 +33,19 @@ export default function Navbar({ navigation, currentPage }) {
         <View style={styles.buttonContainer}>
           <Button
             mode="contained"
-            buttonColor={buttonStates.myGarden ? theme.colors.secondary : theme.colors.tertiary}
+            buttonColor={
+              buttonStates.myGarden
+                ? theme.colors.secondary
+                : theme.colors.tertiary
+            }
             textColor={theme.colors.text}
             style={styles.NavBarButton}
             compact="true"
             testID="homeButton"
-            onPress={()=> {
-              handleButtonPress('myGarden')
-              navigation.navigate('MyGarden')
+            onPress={() => {
+              handleButtonPress("myGarden");
+              navigation.navigate("MyGarden");
             }}
-
           >
             <Text
               style={{
@@ -55,12 +59,16 @@ export default function Navbar({ navigation, currentPage }) {
           </Button>
           <Button
             mode="contained"
-            buttonColor={buttonStates.findPlant ? theme.colors.secondary : theme.colors.tertiary}
+            buttonColor={
+              buttonStates.findPlant
+                ? theme.colors.secondary
+                : theme.colors.tertiary
+            }
             textColor={theme.colors.text}
             style={styles.NavBarButton}
             compact="true"
             onPress={() => {
-              handleButtonPress('findPlant')
+              handleButtonPress("findPlant");
               navigation.navigate("FindMyPlant");
             }}
           >
@@ -75,13 +83,17 @@ export default function Navbar({ navigation, currentPage }) {
           </Button>
           <Button
             mode="contained"
-            buttonColor={buttonStates.dailyTasks ? theme.colors.secondary : theme.colors.tertiary}
+            buttonColor={
+              buttonStates.dailyTasks
+                ? theme.colors.secondary
+                : theme.colors.tertiary
+            }
             textColor={theme.colors.text}
             style={styles.NavBarButton}
             compact="true"
             onPress={() => {
-              handleButtonPress('dailyTasks')
-              // navigation.navigate("LoginForm");
+              handleButtonPress("dailyTasks");
+              navigation.navigate("DailyTasks");
             }}
           >
             <Text

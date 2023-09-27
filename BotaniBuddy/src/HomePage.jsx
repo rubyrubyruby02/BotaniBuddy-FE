@@ -40,6 +40,9 @@ export default function HomePage({ navigation }) {
           buttonColor={theme.colors.tertiary}
           style={styles.button}
           textColor={theme.colors.text}
+          onPress={() => {
+            navigation.navigate("DailyTasks");
+          }}
         >
           <Text
             style={{

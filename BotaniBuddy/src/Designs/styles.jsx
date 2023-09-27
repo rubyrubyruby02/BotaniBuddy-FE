@@ -10,7 +10,6 @@ export default styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     position: "absolute",
-
   },
   header: {
     height: 100,
@@ -80,7 +79,7 @@ export default styles = StyleSheet.create({
   searchbar: {
     marginTop: "15%",
     marginBottom: "10%",
-    width: "80%"
+    width: "80%",
   },
   cameraButton: {
     width: 180,
@@ -99,7 +98,7 @@ export default styles = StyleSheet.create({
     borderRadius: 10,
     // width: 250,
     // height: 3000
-    marginBottom: 300
+    marginBottom: 300,
   },
   resultImage: {
     // flex:1,
@@ -107,7 +106,17 @@ export default styles = StyleSheet.create({
     height: 350,
     width: 200,
     marginLeft: 90,
-    marginTop: 20, 
+    marginTop: 20,
+  },
 
-  }
+  section: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  paragraph: {
+    fontSize: 15,
+  },
+  checkbox: {
+    margin: 8,
+  },
 });

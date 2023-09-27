@@ -13,21 +13,18 @@ import FindMyPlant from "./src/FindMyPlant";
 import FindPlantByImage from "./src/FindPlantByImage";
 import FindPlantBySearch from "./src/FindPlantBySearch";
 
-import {UserProvider} from './src/user'
-
+import { UserProvider } from "./src/user";
 
 import ErrorPage from "./src/ErrorPage";
 import ImageResultPage from "./src/ImageResultPage";
+import DailyTasks from "./src/DailyTasks";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
-
   return (
     <PaperProvider theme={theme}>
-
-      <UserProvider >
+      <UserProvider>
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
@@ -41,6 +38,7 @@ export default function App() {
             <Stack.Screen name="MyGarden" component={MyGarden} />
             <Stack.Screen name="NavBar" component={Navbar} />
             <Stack.Screen name="FindMyPlant" component={FindMyPlant} />
+            <Stack.Screen name="DailyTasks" component={DailyTasks} />
             <Stack.Screen
               name="FindPlantByImage"
               component={FindPlantByImage}
@@ -49,8 +47,8 @@ export default function App() {
               name="FindPlantBySearch"
               component={FindPlantBySearch}
             />
-          <Stack.Screen name="ImageResultPage" component={ImageResultPage} />
-          <Stack.Screen name="ErrorPage" component={ErrorPage} />
+            <Stack.Screen name="ImageResultPage" component={ImageResultPage} />
+            <Stack.Screen name="ErrorPage" component={ErrorPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </UserProvider>
