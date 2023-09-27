@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, FlatList, FlatListComponent } from "react-native";
 import { Button, Text, TouchableRipple, useTheme, Card } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import React, { useEffect, useState } from "react";
@@ -9,23 +9,25 @@ exports.MyGardenPlantCard = ({plantInfosArray}) => {
     const [selectedPlant, setSelectedPlant] = useState(null)
     const [selectedPlantInfo, setSelectedPlantInfo] = useState("")
 
-    const [buttonStates, setButtonStates] = useState({
-        plant1: false,
-        plant2: false,
-        plant3: false,
-      });
+    const [buttonStates, setButtonStates] = useState({});
+
+    console.log(buttonStates, "buttonStates")
+
+
       const [fontsLoaded] = useFonts({ Itim_400Regular });
       const theme = useTheme();
     
       const handleButtonPress = (buttonName) => {
+
         setButtonStates((currentState) => {
-          const copyState = { ...currentState };
+          const copyState = {...currentState};
           for (const key in copyState) {
             copyState[key] = false;
           }
           copyState[buttonName] = true;
           return copyState;
-        });
+        })
+        
       };
 
       if (!fontsLoaded) {
@@ -47,22 +49,24 @@ return (
   
     <ScrollView horizontal style={{ flexGrow:0 }}>
     <View style={styles.buttonContainer}>
-
-        {plantInfosArray.map((plant)=> {
-
+        {plantInfosArray.map((plant, index)=> {
             return (
+
                 <Button
+                key={index}
                 mode="contained"
                 buttonColor={
-                  buttonStates.plant1
+                  buttonStates[index]
                     ? theme.colors.secondary
                     : theme.colors.tertiary
                 }
                 textColor={theme.colors.text}
                 style={styles.MyPlantButton}
                 compact="true"
+
                 onPress={() => {
-                  handleButtonPress("plant1");
+                 
+                  handleButtonPress(index);
                   displayInfo(plant.myPlant)
                 }}
               >
@@ -75,22 +79,15 @@ return (
                   {plant.myPlant.commonName}
                 </Text>
               </Button>
-        
             )
 
         })
         }
     </View>
   </ScrollView>
-  
-
-
-
-{console.log(selectedPlantInfo)}
 
 {selectedPlant && (
 <View style={styles.container}>
-  {/* name, description, where live, how often water, stuff not to do, toxicity */}
   <ScrollView vertical style={{width: "80%"}}>
     <View style={styles.card}>
       <Text style={{

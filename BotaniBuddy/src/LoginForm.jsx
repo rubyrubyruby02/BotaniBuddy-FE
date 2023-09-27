@@ -24,7 +24,6 @@ export default function LoginForm({ navigation }) {
       .then(({ data }) => {
   
         setUserID(data.user.user_id);
-        console.log(userID, 'in loginForm')
         setisLoading(true);
 
         if (data.user.msg === "Login succesful") {
@@ -34,7 +33,6 @@ export default function LoginForm({ navigation }) {
         }
       })
       .then(() => {
-        console.log(userID, 'in second then')
       })
       .catch(() => {
         setisLoading(false);

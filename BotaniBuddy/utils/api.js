@@ -12,7 +12,6 @@ exports.searchBar = (name, user_id) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
       return error;
     });
 };
@@ -56,7 +55,6 @@ export function postImage(data, user_id) {
         "Content-Type": `multipart/form-data`,
       },
     })
-
     .then(({ data }) => {
       return data;
     });
@@ -87,25 +85,10 @@ exports.getPlantInfos = (user_id, plant_id) => {
 exports.getDailyTasks = (user_id) => {
   return axiosInstance
     .get(`/api/users/${user_id}/tasks`)
-    .then((tasks) => {
-      return tasks;
+    .then(({ data }) => {
+      return data;
     })
     .catch((error) => {
       return error;
     });
 };
-
-// {
-//   tasks: [
-//     {
-//       plantName: "European Silver Fir",
-//       task: { toBeWateredAgain: "21-09-2003" },
-//       plantID: "6513ea3bc0a2f8360b9e4a93",
-//     },
-//     {
-//       plantName: "Pyramidalis Silver Fir",
-//       task: { toBeWateredAgain: "21-09-2003" },
-//       plantID: "6513ea3bc0a2f8360b9e4a9c",
-//     },
-//   ],
-// };
