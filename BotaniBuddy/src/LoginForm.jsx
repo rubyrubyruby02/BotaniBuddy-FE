@@ -6,7 +6,6 @@ import styles from "./Designs/styles";
 import { useState } from "react";
 import { logIn } from "../utils/api.js";
 
-
 import { UserContext } from "./user";
 import { useContext } from "react";
 
@@ -17,12 +16,11 @@ export default function LoginForm({ navigation }) {
   const [loginError, setloginError] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
-  const {userID, setUserID} = useContext(UserContext);
+  const { userID, setUserID } = useContext(UserContext);
 
   const checkLogin = () => {
     logIn(password, text)
       .then(({ data }) => {
-  
         setUserID(data.user.user_id);
         setisLoading(true);
 
@@ -32,8 +30,7 @@ export default function LoginForm({ navigation }) {
           navigation.navigate("HomePage");
         }
       })
-      .then(() => {
-      })
+      .then(() => {})
       .catch(() => {
         setisLoading(false);
         setloginError(true);
@@ -86,7 +83,6 @@ export default function LoginForm({ navigation }) {
         disabled={text === "" || password === ""}
         onPress={() => {
           checkLogin();
-          
         }}
       >
         <Text

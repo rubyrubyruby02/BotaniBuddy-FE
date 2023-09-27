@@ -15,7 +15,6 @@ export default function Navbar({ navigation, currentPage }) {
     return <Text>Loading</Text>;
   }
 
-
   return (
     <>
       <View>

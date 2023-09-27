@@ -14,19 +14,18 @@ import { UserContext } from "./user";
 export default function DailyTasks({ navigation }) {
   const [isChecked, setChecked] = useState({});
   const [dailyTasks, setDailyTasks] = useState([]);
-  const [isVisible, setIsVisible] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [isPatched, setIsPatched] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isPatched, setIsPatched] = useState(false);
   const [fontsLoaded] = useFonts({ Itim_400Regular });
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
 
   const { userID, setUserID } = useContext(UserContext);
-  console.log(dailyTasks.length, 'dailytasks length')
+
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     getDailyTasks(userID).then((tasks) => {
-      console.log(tasks.tasks, 'in useEffect')
       setDailyTasks(tasks.tasks);
 
       setChecked(() => {
@@ -34,111 +33,104 @@ export default function DailyTasks({ navigation }) {
         for (let i = 0; i < tasks.tasks.length; i++) {
           output[tasks.tasks[i].plantID] = false;
         }
-       
+
         return output;
       });
-      setIsLoading(false)
+      setIsLoading(false);
     });
-
   }, [isPatched]);
 
   const tickTask = (plantID) => {
     setChecked((currentState) => {
       const newState = { ...currentState };
-      if(newState[plantID] === false) {
-        newState[plantID] = true
+      if (newState[plantID] === false) {
+        newState[plantID] = true;
       } else {
-        newState[plantID] = false
+        newState[plantID] = false;
       }
       return newState;
     });
-    
   };
 
   const confirmation = async () => {
-    const plantsToPatch = []
-    for(const key in isChecked) {
-      if(isChecked[key] === true) {
-        plantsToPatch.push(key)
+    const plantsToPatch = [];
+    for (const key in isChecked) {
+      if (isChecked[key] === true) {
+        plantsToPatch.push(key);
       }
     }
 
-    for(let i = 0; i < plantsToPatch.length; i++) {
-       await patchDailyTasks(userID, plantsToPatch[i])
-      console.log(plantsToPatch[i], 'in for loop')
+    for (let i = 0; i < plantsToPatch.length; i++) {
+      await patchDailyTasks(userID, plantsToPatch[i]);
     }
-    // plantsToPatch.forEach( async (plant_id) => {
-    //   await
-      
-    // })
-    console.log(plantsToPatch)
+
     setIsPatched((b) => {
-      return !b
-    })
-  }
-
-    
-
+      return !b;
+    });
+  };
 
   return (
     <View style={styles.container}>
       <Header />
-      <Navbar  navigation={navigation} currentPage={"dailyTasks"}/>
+      <Navbar navigation={navigation} currentPage={"dailyTasks"} />
 
-      {isLoading ? <Text style={{
+      {isLoading ? (
+        <Text
+          style={{
             fontFamily: "Itim_400Regular",
             fontSize: 30,
             paddingTop: 15,
-          }}>Loading </Text> : <><ScrollView vertical style={{ flexGrow:0, width: "80%" }}>
-          <View style={styles.tasksCard}>
-          {dailyTasks.length !== 0 &&
-            dailyTasks.map((task, index) => (
-              <View style={styles.taskContainer} key={task.plantID}>
-                <Text style={styles.plantName}>{task.plantName}</Text>
-                <View style={styles.checkboxContainer}>
-                  <Checkbox
-                    style={styles.checkbox}
-                    value={isChecked[task.plantID]}
-                    onValueChange={() => {
-                      tickTask(task.plantID)
-                      
-                    }}
-                    color={isChecked[task.plantID] ? "#0C7C59" : undefined}
-                  />
-                  <Text style={styles.waterText}>Water</Text>
-                </View>
-            
-              </View>
-              
-            ))}
-            
+          }}
+        >
+          Loading{" "}
+        </Text>
+      ) : (
+        <>
+          <ScrollView vertical style={{ flexGrow: 0, width: "80%" }}>
+            <View style={styles.tasksCard}>
+              {dailyTasks.length !== 0 &&
+                dailyTasks.map((task, index) => (
+                  <View style={styles.taskContainer} key={task.plantID}>
+                    <Text style={styles.plantName}>{task.plantName}</Text>
+                    <View style={styles.checkboxContainer}>
+                      <Checkbox
+                        style={styles.checkbox}
+                        value={isChecked[task.plantID]}
+                        onValueChange={() => {
+                          tickTask(task.plantID);
+                        }}
+                        color={isChecked[task.plantID] ? "#0C7C59" : undefined}
+                      />
+                      <Text style={styles.waterText}>Water</Text>
+                    </View>
+                  </View>
+                ))}
             </View>
-        </ScrollView>
-        
-        
+          </ScrollView>
 
-      <View>
-      <Button
-            mode={"contained"}
-            buttonColor={theme.colors.tertiary}
-            style={styles.button}
-            textColor={theme.colors.text}
-
-            onPress={() => {
-              confirmation()
-            }}
+          <View>
+            <Button
+              mode={"contained"}
+              buttonColor={theme.colors.tertiary}
+              style={styles.button}
+              textColor={theme.colors.text}
+              onPress={() => {
+                confirmation();
+              }}
             >
-              <Text style={{
-                fontFamily: "Itim_400Regular",
-                paddingTop: 15,
-                fontSize: 30,
-    
-              }}>Confirm</Text>
+              <Text
+                style={{
+                  fontFamily: "Itim_400Regular",
+                  paddingTop: 15,
+                  fontSize: 30,
+                }}
+              >
+                Confirm
+              </Text>
             </Button>
-      </View>
-      </>}
-      
-        
+          </View>
+        </>
+      )}
     </View>
   );
 }

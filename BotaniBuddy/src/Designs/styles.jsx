@@ -42,7 +42,6 @@ export default styles = StyleSheet.create({
   formContainer: {
     width: 300,
   },
-
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -57,7 +56,6 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
-
   NavBarButton: {
     minWidth: "30%",
     height: 60,
@@ -65,13 +63,11 @@ export default styles = StyleSheet.create({
     justifyContent: "center",
     margin: 5,
   },
-
   FormText: {
     width: "90%",
     backgroundColor: theme.colors.primary,
     margin: 5,
   },
-
   buttonDisabled: {
     backgroundColor: theme.colors.text,
     marginVertical: 20,
@@ -87,11 +83,9 @@ export default styles = StyleSheet.create({
     flex: 1,
   },
   searchbar: {
-
     marginTop: "8%",
     marginBottom: "3%",
-    width: "80%"
-
+    width: "80%",
   },
   cameraButton: {
     width: 180,
@@ -101,7 +95,6 @@ export default styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
-
   card: {
     backgroundColor: theme.colors.onCustomDarkGreen,
     flex: 1,
@@ -118,7 +111,6 @@ export default styles = StyleSheet.create({
     marginLeft: 90,
     marginTop: 20,
   },
-
   taskContainer: {
     flexDirection: "column", // Display components vertically
     alignItems: "center", // Center components horizontally
@@ -139,5 +131,5 @@ export default styles = StyleSheet.create({
   },
   tasksCard: {
     flex: 1,
-  }
+  },
 });

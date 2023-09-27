@@ -6,7 +6,6 @@ const axiosInstance = axios.create({
 });
 
 exports.searchBar = (name, user_id) => {
-
   return axiosInstance
     .post(`/api/users/${user_id}/add_by_search`, { name })
     .then((response) => {
@@ -96,12 +95,10 @@ exports.getDailyTasks = (user_id) => {
 
 exports.patchDailyTasks = (user_id, plant_id) => {
   return axiosInstance
-  .patch(`/api/users/${user_id}/tasks/${plant_id}`)
-  .then(({data}) => {
-    console.log(data)
-  })
-  .catch((error) => {
-    console.log(error)
-    return error
-  })
-}
+    .patch(`/api/users/${user_id}/tasks/${plant_id}`)
+    .then(({ data }) => {
+    })
+    .catch((error) => {
+      return error;
+    });
+};

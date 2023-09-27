@@ -74,7 +74,7 @@ export default function HomePage({ navigation }) {
             Daily Tasks
           </Text>
         </Button>
-       
+
         <Image
           source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
           style={styles.image}
