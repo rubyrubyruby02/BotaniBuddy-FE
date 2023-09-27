@@ -101,7 +101,6 @@ export default styles = StyleSheet.create({
     marginBottom: 300,
   },
   resultImage: {
-    // flex:1,
     justifyContent: "center",
     height: 350,
     width: 200,
@@ -109,14 +108,22 @@ export default styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  section: {
+  taskContainer: {
+    flexDirection: "column", // Display components vertically
+    alignItems: "center", // Center components horizontally
+    marginVertical: 10,
+  },
+  plantName: {
+    fontSize: 16, // Adjust the font size as needed
+  },
+  checkboxContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
-  paragraph: {
-    fontSize: 15,
-  },
   checkbox: {
-    margin: 8,
+    marginHorizontal: 8,
+  },
+  waterText: {
+    fontSize: 14, // Adjust the font size as needed
   },
 });
