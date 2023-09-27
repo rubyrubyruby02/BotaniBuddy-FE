@@ -60,6 +60,9 @@ export default function HomePage({ navigation }) {
           buttonColor={theme.colors.tertiary}
           style={styles.button}
           textColor={theme.colors.text}
+          onPress={() => {
+            navigation.navigate("DailyTasks");
+          }}
         >
           <Text
             style={{
@@ -71,7 +74,7 @@ export default function HomePage({ navigation }) {
             Daily Tasks
           </Text>
         </Button>
-       
+
         <Image
           source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
           style={styles.image}

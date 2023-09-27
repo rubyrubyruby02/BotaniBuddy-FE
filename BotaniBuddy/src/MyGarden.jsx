@@ -1,7 +1,6 @@
-
 import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, View, Image} from "react-native";
-import {Text, TouchableRipple, useTheme } from "react-native-paper";
+import { StyleSheet, View, Image } from "react-native";
+import { Text, TouchableRipple, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
 import Navbar from "./NavBar";
@@ -10,12 +9,11 @@ import { getPlantButtons, getPlantInfos } from "../utils/api";
 import { UserContext } from "./user";
 
 export default function MyGarden({ navigation }) {
-
   const [plantsArray, setPlantsArray] = useState([]);
   const [plantInfosArray, setPlantInfosArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const {userID, setUserID} = useContext(UserContext);
+  const { userID, setUserID } = useContext(UserContext);
 
   useEffect(() => {
     getPlantButtons(userID)
@@ -33,14 +31,13 @@ export default function MyGarden({ navigation }) {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Error:", error);
       });
   }, []);
 
   return (
     <View style={styles.container}>
       <Header />
-      <Navbar currentPage={"myGarden"} navigation={navigation} />
+      <Navbar navigation={navigation} currentPage={"myGarden"} />
 
       {isLoading ? (
         <Text
@@ -52,7 +49,9 @@ export default function MyGarden({ navigation }) {
         >
           Loading
         </Text>
-      ) : ( <MyGardenPlantCard  plantInfosArray={plantInfosArray}/> )}
+      ) : (
+        <MyGardenPlantCard plantInfosArray={plantInfosArray} />
+      )}
 
       <Image
         source={require("../assets/image-from-rawpixel-id-12034028-original.png")}

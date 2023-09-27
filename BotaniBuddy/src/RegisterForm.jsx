@@ -5,6 +5,8 @@ import Header from "./Header";
 import styles from "./Designs/styles";
 import { useState } from "react";
 import { registerUser } from "../utils/api.js";
+import { UserContext } from "./user";
+import { useContext } from "react";
 
 export default function RegisterForm({ navigation }) {
   const [text, setText] = useState("");
@@ -13,12 +15,18 @@ export default function RegisterForm({ navigation }) {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { userID, setUserID } = useContext(UserContext);
+
   const postRegistration = () => {
     registerUser(text, password).then((response) => {
+      const { data } = response;
+
+      console.log(data);
       setIsLoading(true);
 
       if (response.status === 201) {
         setIsLoading(false);
+        setUserID(data.user.user_id);
         navigation.navigate("HomePage");
       } else {
         setIsLoading(false);
@@ -91,18 +99,22 @@ export default function RegisterForm({ navigation }) {
             Register
           </Text>
         </Button>
-        <Text style={{
-              fontFamily: "Itim_400Regular",
-              fontSize: 20,
-              paddingTop: 15,
-            }}>
+        <Text
+          style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 20,
+            paddingTop: 15,
+          }}
+        >
           {password !== confirmPassword ? "Passwords must match" : ""}
         </Text>
-        <Text  style={{
-              fontFamily: "Itim_400Regular",
-              fontSize: 20,
-              paddingTop: 15,
-            }}>
+        <Text
+          style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 20,
+            paddingTop: 15,
+          }}
+        >
           {password === "" || confirmPassword === "" || text === ""
             ? "Fields must not be empty"
             : ""}

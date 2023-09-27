@@ -6,7 +6,6 @@ const axiosInstance = axios.create({
 });
 
 exports.searchBar = (name, user_id) => {
-
   return axiosInstance
     .post(`/api/users/${user_id}/add_by_search`, { name })
     .then((response) => {
@@ -73,15 +72,33 @@ exports.getPlantButtons = (user_id) => {
 };
 
 exports.getPlantInfos = (user_id, plant_id) => {
+  return axiosInstance
+    .get(`api/users/${user_id}/plants/${plant_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
 
-    return axiosInstance
-        .get(`api/users/${user_id}/plants/${plant_id}`)
-        .then(({data}) => {
-            return data
-        })
-        .catch((error) => {
-            return error
-        })
+exports.getDailyTasks = (user_id) => {
+  return axiosInstance
+    .get(`/api/users/${user_id}/tasks`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
 
-}
-
+exports.patchDailyTasks = (user_id, plant_id) => {
+  return axiosInstance
+    .patch(`/api/users/${user_id}/tasks/${plant_id}`)
+    .then(({ data }) => {
+    })
+    .catch((error) => {
+      return error;
+    });
+};
