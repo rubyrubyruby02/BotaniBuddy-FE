@@ -57,11 +57,12 @@ export default function FindPlantbyImage({ navigation }) {
       );
       setImagePadding(remainder);
       setRatio(desiredRatio);
-      setIsRatioSet(true);
     }
+    setIsRatioSet(true);
   };
 
   const setCameraReady = async () => {
+    console.log("setCameraReady Before");
     setIsLoading(true);
     if (!isRatioSet) {
       await prepareRatio();

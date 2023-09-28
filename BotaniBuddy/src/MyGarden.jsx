@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, ImageBackground } from "react-native";
 import { Text, TouchableRipple, useTheme } from "react-native-paper";
 import { useFonts, Itim_400Regular } from "@expo-google-fonts/itim";
 import Header from "./Header";
@@ -35,6 +35,10 @@ export default function MyGarden({ navigation }) {
   }, []);
 
   return (
+    <ImageBackground 
+    source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
+          style={{ flex: 1,  resizeMode: "cover"}}
+        >
     <View style={styles.container}>
       <Header />
       <Navbar navigation={navigation} currentPage={"myGarden"} />
@@ -53,10 +57,11 @@ export default function MyGarden({ navigation }) {
         <MyGardenPlantCard plantInfosArray={plantInfosArray} />
       )}
 
-      <Image
+      {/* <Image
         source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
         style={styles.image}
-      ></Image>
+      ></Image> */}
     </View>
+    </ImageBackground>
   );
 }
