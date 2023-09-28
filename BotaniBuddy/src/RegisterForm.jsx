@@ -91,18 +91,22 @@ export default function RegisterForm({ navigation }) {
             Register
           </Text>
         </Button>
-        <Text style={{
-              fontFamily: "Itim_400Regular",
-              fontSize: 20,
-              paddingTop: 15,
-            }}>
+        <Text
+          style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 20,
+            paddingTop: 15,
+          }}
+        >
           {password !== confirmPassword ? "Passwords must match" : ""}
         </Text>
-        <Text  style={{
-              fontFamily: "Itim_400Regular",
-              fontSize: 20,
-              paddingTop: 15,
-            }}>
+        <Text
+          style={{
+            fontFamily: "Itim_400Regular",
+            fontSize: 20,
+            paddingTop: 15,
+          }}
+        >
           {password === "" || confirmPassword === "" || text === ""
             ? "Fields must not be empty"
             : ""}
@@ -136,10 +140,10 @@ export default function RegisterForm({ navigation }) {
       </View>
 
       <View>
-        <Image
+        {/* <Image
           source={require("../assets/image-from-rawpixel-id-12034028-original.png")}
           style={styles.image}
-        ></Image>
+        ></Image> */}
       </View>
     </>
   );
